@@ -3002,6 +3002,210 @@ input:checked + .slider::before {
   font-weight: 600;
 }
 
+/* ==========================================================================
+   DAYCRAFT LIFETIME PRO (₹399 ONE-TIME - NO LOGIN)
+   ========================================================================== */
+
+/* Top Header PRO Badge Button */
+.pro-badge-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.30rem;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.20), rgba(217, 119, 6, 0.25));
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  color: #fbbf24;
+  padding: 0.35rem 0.65rem;
+  border-radius: 20px;
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all var(--trans-fast);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.15);
+}
+
+.pro-badge-btn:hover {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.35), rgba(217, 119, 6, 0.40));
+  border-color: #fbbf24;
+  transform: translateY(-1px);
+  box-shadow: 0 0 18px rgba(245, 158, 11, 0.30);
+}
+
+.pro-badge-btn.pro-active {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.20), rgba(5, 150, 105, 0.25));
+  border-color: rgba(16, 185, 129, 0.50);
+  color: #34d399;
+}
+
+/* Settings PRO Card */
+.settings-pro-card {
+  background: linear-gradient(135deg, rgba(24, 24, 27, 0.95), rgba(39, 39, 42, 0.90));
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: var(--card-radius);
+  padding: 0.85rem 1rem;
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.10);
+}
+
+.pro-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.35rem;
+}
+
+.pro-card-badge {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #fbbf24;
+}
+
+.pro-card-price {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--text-main);
+  background: var(--bg-elevated);
+  padding: 0.15rem 0.45rem;
+  border-radius: 6px;
+}
+
+.pro-card-desc {
+  font-size: 0.80rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+}
+
+/* Lifetime PRO Modal Dialog */
+.pro-modal-dialog {
+  max-width: 440px;
+  border-radius: 20px;
+  border: 1px solid rgba(245, 158, 11, 0.40);
+  background: var(--bg-card);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.60), 0 0 30px rgba(245, 158, 11, 0.15);
+  overflow: hidden;
+  padding: 0;
+}
+
+.pro-modal-hero {
+  background: linear-gradient(180deg, rgba(245, 158, 11, 0.15) 0%, transparent 100%);
+  padding: 1.75rem 1.5rem 1rem 1.5rem;
+  text-align: center;
+}
+
+.pro-icon-aura {
+  font-size: 2.75rem;
+  margin-bottom: 0.50rem;
+  animation: pulseGlow 2.5s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.4)); }
+  50% { transform: scale(1.08); filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.7)); }
+}
+
+.pro-modal-title {
+  font-size: 1.45rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.35rem;
+}
+
+.pro-price-tag {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.20rem;
+  margin-bottom: 0.40rem;
+}
+
+.pro-price-tag .currency {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #fbbf24;
+}
+
+.pro-price-tag .amount {
+  font-family: var(--font-mono);
+  font-size: 2.25rem;
+  font-weight: 900;
+  color: #fbbf24;
+  letter-spacing: -0.03em;
+}
+
+.pro-price-tag .period {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.pro-modal-subtitle {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.pro-modal-body {
+  padding: 1rem 1.5rem 1.5rem 1.5rem;
+}
+
+.pro-benefits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.35rem;
+}
+
+.pro-benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+
+.benefit-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.40);
+  color: #34d399;
+  font-size: 0.75rem;
+  font-weight: 900;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.pro-benefit-item strong {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 2px;
+}
+
+.pro-benefit-item p {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* ==========================================================================
+   PRO USER STATUS: HIDE ALL ADS GLOBALLY
+   ========================================================================== */
+
+body.user-is-pro .docked-bottom-ad-banner,
+body.user-is-pro .in-page-ad-card,
+body.user-is-pro #settingsProBanner {
+  display: none !important;
+}
+
+
 
 
 

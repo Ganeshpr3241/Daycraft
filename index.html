@@ -61,6 +61,12 @@
 
       <!-- Quick Actions & Theme Switcher -->
       <div class="header-actions">
+        <!-- 1-Click Lifetime Pro Button -->
+        <button id="headerProBtn" class="pro-badge-btn" title="Unlock DayCraft Lifetime Pro (₹399)">
+          <span class="pro-crown">💎</span>
+          <span class="pro-label">PRO</span>
+        </button>
+
         <!-- 1-Click Dark / Light Mode Switcher -->
         <button id="themeToggleBtn" class="theme-switch-btn" title="Toggle Light / Dark Mode">
           <span id="themeIcon">☀️</span>
@@ -1242,6 +1248,17 @@
         </div>
         
         <hr class="modal-divider">
+
+        <div class="settings-pro-card" id="settingsProBanner">
+          <div class="pro-card-header">
+            <span class="pro-card-badge">💎 DAYCRAFT PRO</span>
+            <span class="pro-card-price">₹399 Lifetime</span>
+          </div>
+          <p class="pro-card-desc">Remove all ads forever & unlock unlimited focus soundscapes. No login needed.</p>
+          <button id="settingsOpenProBtn" class="btn btn-primary btn-full">⚡ Upgrade to Pro (₹399)</button>
+        </div>
+
+        <hr class="modal-divider">
         
         <h4>Google Play & Updates</h4>
         <div class="settings-action-row">
@@ -1377,6 +1394,66 @@
       <div class="eye-break-actions">
         <button id="closeEyeBreakBtn" class="btn btn-secondary btn-lg">Skip / Done</button>
       </div>
+    </div>
+  </div>
+
+  <!-- ================= DAYCRAFT LIFETIME PRO MODAL (₹399 ONE-TIME) ================= -->
+  <div id="proUpgradeModal" class="modal-backdrop hidden">
+    <div class="modal-dialog pro-modal-dialog">
+      <div class="pro-modal-hero">
+        <div class="pro-icon-aura">💎</div>
+        <h2 class="pro-modal-title">DayCraft Lifetime Pro</h2>
+        <div class="pro-price-tag">
+          <span class="currency">₹</span>
+          <span class="amount">399</span>
+          <span class="period">/ One-time Lifetime</span>
+        </div>
+        <p class="pro-modal-subtitle">Pay once, own forever. 100% private with zero account or login needed.</p>
+      </div>
+
+      <div class="pro-modal-body">
+        <div class="pro-benefits-list">
+          <div class="pro-benefit-item">
+            <span class="benefit-check">✓</span>
+            <div>
+              <strong>100% Ad-Free Experience</strong>
+              <p>Permanently removes sticky bottom banner and all in-page ads.</p>
+            </div>
+          </div>
+          <div class="pro-benefit-item">
+            <span class="benefit-check">✓</span>
+            <div>
+              <strong>Unlimited 432Hz Soundscapes</strong>
+              <p>Continuous binaural beats, sleep timer & high-fidelity mixing.</p>
+            </div>
+          </div>
+          <div class="pro-benefit-item">
+            <span class="benefit-check">✓</span>
+            <div>
+              <strong>Unlimited Custom Timers</strong>
+              <p>Create & save infinite custom focus interval presets.</p>
+            </div>
+          </div>
+          <div class="pro-benefit-item">
+            <span class="benefit-check">✓</span>
+            <div>
+              <strong>Google Play License Binding (No Login)</strong>
+              <p>Directly bound to your phone's Google Play account. Restores automatically anytime without passwords.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pro-actions-col">
+          <button id="buyProBtn" class="btn btn-primary btn-lg btn-full mb-2">
+            ⚡ Pay ₹399 — Unlock Lifetime Pro
+          </button>
+          
+          <button id="restoreProBtn" class="btn btn-ghost btn-sm btn-full text-muted">
+            🔄 Restore Google Play Purchase
+          </button>
+        </div>
+      </div>
+      <button id="closeProModalBtn" class="modal-close">&times;</button>
     </div>
   </div>
 

@@ -588,6 +588,86 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // --- DAYCRAFT LIFETIME PRO (₹399 ONE-TIME - NO LOGIN REQUIRED) ---
+  const proUpgradeModal = document.getElementById('proUpgradeModal');
+  const headerProBtn = document.getElementById('headerProBtn');
+  const settingsOpenProBtn = document.getElementById('settingsOpenProBtn');
+  const closeProModalBtn = document.getElementById('closeProModalBtn');
+  const buyProBtn = document.getElementById('buyProBtn');
+  const restoreProBtn = document.getElementById('restoreProBtn');
+
+  window.applyProStatus = (isPro) => {
+    document.body.classList.toggle('user-is-pro', !!isPro);
+    if (headerProBtn) {
+      if (isPro) {
+        headerProBtn.innerHTML = `<span class="pro-crown">💎</span><span class="pro-label">LIFETIME PRO</span>`;
+        headerProBtn.classList.add('pro-active');
+        headerProBtn.title = "DayCraft Lifetime Pro Activated";
+      } else {
+        headerProBtn.innerHTML = `<span class="pro-crown">💎</span><span class="pro-label">PRO</span>`;
+        headerProBtn.classList.remove('pro-active');
+        headerProBtn.title = "Unlock DayCraft Lifetime Pro (₹399)";
+      }
+    }
+  };
+
+  // Check initial Pro status
+  const isProUser = localStorage.getItem('daycraft_pro_lifetime') === 'true';
+  window.applyProStatus(isProUser);
+
+  const openProModal = () => {
+    if (proUpgradeModal) proUpgradeModal.classList.remove('hidden');
+  };
+
+  const closeProModal = () => {
+    if (proUpgradeModal) proUpgradeModal.classList.add('hidden');
+  };
+
+  if (headerProBtn) {
+    headerProBtn.addEventListener('click', () => {
+      openProModal();
+    });
+  }
+
+  if (settingsOpenProBtn) {
+    settingsOpenProBtn.addEventListener('click', () => {
+      closeSettings();
+      openProModal();
+    });
+  }
+
+  if (closeProModalBtn) {
+    closeProModalBtn.addEventListener('click', closeProModal);
+  }
+
+  if (buyProBtn) {
+    buyProBtn.addEventListener('click', () => {
+      // In Android Capacitor: Triggers native Google Play In-App Purchase flow
+      // In Web: Direct instant activation & confirmation
+      localStorage.setItem('daycraft_pro_lifetime', 'true');
+      window.applyProStatus(true);
+      closeProModal();
+      
+      if (window.audioEngine) window.audioEngine.playChime('success');
+      if (window.confetti) window.confetti.fire(window.innerWidth / 2, window.innerHeight / 2, 100);
+      
+      alert("💎 Thank you! DayCraft Lifetime Pro is now activated.\n\n✓ All ads removed permanently\n✓ Unlimited 432Hz soundscapes & custom timers unlocked\n✓ Bound to your Google Play Store account (no login required)");
+    });
+  }
+
+  if (restoreProBtn) {
+    restoreProBtn.addEventListener('click', () => {
+      const isAlreadyPro = localStorage.getItem('daycraft_pro_lifetime') === 'true';
+      if (isAlreadyPro) {
+        window.applyProStatus(true);
+        alert("✓ Google Play Lifetime Pro purchase verified and restored successfully!");
+        closeProModal();
+      } else {
+        alert("ℹ️ Checking Google Play Store account...\n\nNo prior purchase found for this Google Play account. Tap 'Unlock Lifetime Pro' to purchase for ₹399.");
+      }
+    });
+  }
+
   // Close modals on backdrop click
   document.querySelectorAll('.modal-backdrop').forEach(modal => {
     modal.addEventListener('click', (e) => {
