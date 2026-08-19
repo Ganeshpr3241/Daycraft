@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>DayCraft — Everyday Life OS</title>
+  <meta name="description" content="A minimalist, professional daily companion for focus, tasks, wellness, ambient soundscapes, and reflection.">
+  
+  <!-- Mobile & Android Status Bar Theming -->
+  <meta name="theme-color" content="#09090b">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  
+  <!-- App Icons & Logo -->
+  <link rel="icon" type="image/png" href="./assets/logo.png">
+  <link rel="apple-touch-icon" href="./assets/logo.png">
+  
+  <!-- Web App Manifest for Android Installation -->
+  <link rel="manifest" href="manifest.json">
+  
+  <!-- Minimal & Premium Typography from Google Fonts (Inter + JetBrains Mono) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheets with Cache Busters -->
+  <link rel="stylesheet" href="css/main.css?v=8.0">
+  <link rel="stylesheet" href="css/components.css?v=8.0">
+  <link rel="stylesheet" href="css/responsive.css?v=8.0">
+</head>
+<body class="theme-dark">
+
+  <!-- Main Application Wrapper -->
+  <div id="app" class="app-container">
+    
+    <!-- Top Navigation Header -->
+    <header class="app-header">
+      <div class="header-brand">
+        <div class="brand-icon">
+          <!-- Premium Solid Sun / Focus Glyph -->
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <circle cx="12" cy="12" r="5" fill="currentColor"></circle>
+            <path d="M12 1v3M12 20v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M1 12h3M20 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">DayCraft</span>
+          <span class="brand-tag">Everyday OS</span>
+        </div>
+      </div>
+
+      <!-- Live Clock & Date -->
+      <div class="header-datetime">
+        <span class="live-time" id="liveClock">--:-- --</span>
+        <span class="live-date" id="liveDate">Loading date...</span>
+      </div>
+
+      <!-- Quick Actions & Theme Switcher -->
+      <div class="header-actions">
+        <!-- 1-Click Dark / Light Mode Switcher -->
+        <button id="themeToggleBtn" class="theme-switch-btn" title="Toggle Light / Dark Mode">
+          <span id="themeIcon">☀️</span>
+          <span id="themeLabel">Light</span>
+        </button>
+
+        <button id="headerSetGoalsBtn" class="btn btn-icon" title="Set Today's Daily Goals">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path>
+          </svg>
+          <span class="btn-text">Goals</span>
+        </button>
+
+        <button id="zenModeBtn" class="btn btn-icon" title="Fullscreen Zen Focus Mode">
+          <!-- Premium Solid Zen / Maximize Glyph -->
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor">
+            <path d="M3 3h6v2H5v4H3V3zm18 0h-6v2h4v4h2V3zM3 21h6v-2H5v-4H3v6zm18 0h-6v-2h4v-4h2v6z"></path>
+          </svg>
+          <span class="btn-text">Zen</span>
+        </button>
+
+        <button id="settingsModalBtn" class="btn btn-icon" title="Settings & Preferences">
+          <!-- Premium Solid Settings Gear Glyph -->
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor">
+            <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.48.48 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.49.49 0 0 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6a3.6 3.6 0 1 1 0-7.2 3.6 3.6 0 0 1 0 7.2z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Contextual User Permission Banner -->
+    <div id="permissionBanner" class="permission-banner hidden">
+      <div class="permission-content">
+        <span class="permission-icon">🔔</span>
+        <div class="permission-text">
+          <strong id="permBannerTitle">Enable Notifications?</strong>
+          <span id="permBannerDesc">Receive popup alerts for completed focus timers, breaks, and wellness reminders.</span>
+        </div>
+      </div>
+      <div class="permission-actions">
+        <button id="permBannerAllow" class="btn btn-sm btn-primary">Enable Alerts</button>
+        <button id="permBannerDismiss" class="btn btn-sm btn-ghost">Later</button>
+      </div>
+    </div>
+
+    <!-- Main Container With Strictly Vertically Stacked Views -->
+    <main class="dashboard-views-container">
+      
+      <!-- ================= TAB VIEW 1: FOCUS STUDIO (VERTICALLY STACKED) ================= -->
+      <section class="tab-view active" id="viewFocus">
+        <div class="vertical-feed-layout">
+          
+          <!-- Card 1: Today's Greeting & #1 Focus Priority Spotlight -->
+          <div class="card glass-card spotlight-card">
+            <div class="greeting-header">
+              <span class="greeting-icon" id="greetingIcon">☀️</span>
+              <div>
+                <h2 class="greeting-title" id="greetingText">Good Morning</h2>
+                <p class="greeting-subtitle" id="dayQuote" title="Click to refresh quote">Make today count with clear intention.</p>
+              </div>
+            </div>
+
+            <div class="priority-spotlight">
+              <div class="priority-label">
+                <div class="priority-badge-wrap">
+                  <span class="badge badge-primary">
+                    <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm0-14a6 6 0 1 0 6 6 6 6 0 0 0-6-6zm0 10a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"></path></svg>
+                    <span>MAIN FOCUS TODAY</span>
+                  </span>
+                </div>
+                <button id="editPriorityBtn" class="btn-text-link">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path></svg>
+                  <span>Edit</span>
+                </button>
+              </div>
+              <div class="priority-content" id="priorityDisplay">
+                <span class="priority-text" id="priorityText">Set your single most important goal for today...</span>
+              </div>
+              <div class="priority-input-container hidden" id="priorityInputContainer">
+                <input type="text" id="priorityInput" placeholder="What's the one thing you must finish today?" maxlength="120">
+                <button id="savePriorityBtn" class="btn btn-sm btn-primary">Save</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Focus Studio & Pomodoro Timer -->
+          <div class="card glass-card focus-card">
+            <div class="card-header">
+              <div class="card-title">
+                <div class="card-icon-badge">
+                  <!-- Solid Focus Stopwatch -->
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 10.59V7a1 1 0 0 0-2 0v5a1 1 0 0 0 .29.71l3 3a1 1 0 0 0 1.42-1.42z"></path>
+                  </svg>
+                </div>
+                <span>Focus Studio</span>
+              </div>
+              <div class="session-counter-badge" id="completedSessionsBadgeContainer" title="Completed Focus Sessions Today">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path>
+                </svg>
+                <span id="completedSessionsBadge">0 Done</span>
+              </div>
+            </div>
+
+            <!-- Responsive Timer Mode Presets with Solid SVG Glyphs -->
+            <div class="timer-mode-selector" id="timerModeSelector">
+              <button class="timer-tab active" data-mode="pomodoro" data-time="1500">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 10.59V7a1 1 0 0 0-2 0v5a1 1 0 0 0 .29.71l3 3a1 1 0 0 0 1.42-1.42z"></path></svg>
+                <span>Pomodoro 25m</span>
+              </button>
+
+              <button class="timer-tab" data-mode="shortBreak" data-time="300">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M20 3H4v10a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4v-3h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm0 5h-2V5h2zM4 19h16v2H4z"></path></svg>
+                <span>Break 5m</span>
+              </button>
+
+              <button class="timer-tab" data-mode="longBreak" data-time="900">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12.3 2a10 10 0 0 0-.19 20 10 10 0 0 0 8.35-4.5 1 1 0 0 0-.85-1.5h-.5A7.5 7.5 0 0 1 11.6 8.5c0-2.32 1.05-4.4 2.7-5.8a1 1 0 0 0-.7-1.7h-.3z"></path></svg>
+                <span>Rest 15m</span>
+              </button>
+
+              <button class="timer-tab" data-mode="flow" data-time="3000">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M7 2v11h3v9l7-12h-4l4-8z"></path></svg>
+                <span>Flow 50m</span>
+              </button>
+            </div>
+
+            <!-- Custom Timer Presets Bar & Creator Trigger -->
+            <div class="custom-timers-bar">
+              <div class="custom-timers-list" id="customTimersList">
+                <!-- Dynamically rendered custom timers -->
+              </div>
+              <button id="addCustomTimerTriggerBtn" class="btn btn-xs btn-secondary add-timer-btn" title="Create New Custom Timer Preset">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path></svg>
+                <span>+ Custom Timer</span>
+              </button>
+            </div>
+
+            <!-- Inline Custom Timer Creation Form (Collapsible) -->
+            <form id="customTimerForm" class="custom-timer-form hidden">
+              <input type="text" id="customTimerNameInput" placeholder="Name (e.g. Sprint)" maxlength="20" required>
+              <input type="number" id="customTimerMinsInput" placeholder="Mins (e.g. 15)" min="1" max="180" value="15" required>
+              <button type="submit" class="btn btn-sm btn-primary">Create</button>
+              <button type="button" id="cancelCustomTimerBtn" class="btn btn-sm btn-ghost">Cancel</button>
+            </form>
+
+            <!-- Circular Visual Timer Display -->
+            <div class="timer-circle-container">
+              <svg class="timer-svg" viewBox="0 0 220 220">
+                <circle class="timer-track" cx="110" cy="110" r="95"></circle>
+                <circle class="timer-progress" id="timerProgressCircle" cx="110" cy="110" r="95"></circle>
+              </svg>
+              <div class="timer-digits-wrapper">
+                <div class="timer-digits" id="timerDisplay">25:00</div>
+                <div class="timer-status" id="timerStatusLabel">Ready to focus</div>
+              </div>
+            </div>
+
+            <!-- Timer Controls -->
+            <div class="timer-controls">
+              <button id="timerToggleBtn" class="btn btn-primary btn-lg">
+                <svg id="timerPlayIcon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                  <polygon points="6 4 20 12 6 20 6 4"></polygon>
+                </svg>
+                <span id="timerBtnText">Start Focus</span>
+              </button>
+              <button id="timerResetBtn" class="btn btn-secondary btn-icon" title="Reset Timer">
+                <!-- Solid Reset Icon -->
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                  <path d="M12 4V1L8 5l4 4V6a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z"></path>
+                </svg>
+              </button>
+              <button id="timerSkipBtn" class="btn btn-secondary btn-icon" title="Skip Session">
+                <!-- Solid Skip Icon -->
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                  <path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 3: Ambient Soundscape Studio -->
+          <div class="card glass-card soundscape-card" id="soundscapeCard">
+            <div class="card-header">
+              <div class="card-title">
+                <div class="card-icon-badge">
+                  <!-- Solid Audio Note -->
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"></path>
+                  </svg>
+                </div>
+                <span>Ambient Audio Mixer</span>
+              </div>
+              <div class="card-actions-right">
+                <button id="openSoundscapeFullscreenBtn" class="btn btn-xs btn-secondary" title="Open Fullscreen Sound Studio">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"></path></svg>
+                  <span>Fullscreen</span>
+                </button>
+                <button id="resetSoundscapeBtn" class="btn btn-xs btn-ghost" title="Reset all audio volumes to 0%">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M12 4V1L8 5l4 4V6a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z"></path></svg>
+                  <span>Reset</span>
+                </button>
+                <button id="masterSoundToggle" class="btn btn-xs btn-ghost">Mute All</button>
+              </div>
+            </div>
+
+            <!-- Soundscape Quick Presets -->
+            <div class="soundscape-presets-row">
+              <button class="soundscape-preset-pill" data-preset="rain">🌧️ Rain (60%)</button>
+              <button class="soundscape-preset-pill" data-preset="cafe">☕ Cafe (50%)</button>
+              <button class="soundscape-preset-pill" data-preset="forest">🌲 Forest (70%)</button>
+              <button class="soundscape-preset-pill" data-preset="ocean">🌊 Ocean (60%)</button>
+              <button class="soundscape-preset-pill" data-preset="binaural">🎧 432Hz (80%)</button>
+            </div>
+
+            <!-- Audio Sleep / Continuous Playback Timer Bar -->
+            <div class="audio-timer-bar">
+              <span class="audio-timer-label">Audio Timer:</span>
+              <div class="audio-timer-options" id="audioTimerOptions">
+                <button class="audio-timer-btn active" data-timer="continuous">∞ Continuous</button>
+                <button class="audio-timer-btn" data-timer="15">15m</button>
+                <button class="audio-timer-btn" data-timer="30">30m</button>
+                <button class="audio-timer-btn" data-timer="60">60m</button>
+              </div>
+              <span class="audio-timer-status" id="audioTimerLiveBadge">Continuous ∞</span>
+            </div>
+
+            <div class="sound-tracks-list">
+              <div class="sound-track-item">
+                <div class="sound-info">
+                  <span class="sound-emoji">🌧️</span>
+                  <span class="sound-name">Rainfall</span>
+                </div>
+                <input type="range" class="sound-slider" id="volRain" min="0" max="100" value="0">
+                <span class="sound-vol-val" id="valRain">0%</span>
+              </div>
+
+              <div class="sound-track-item">
+                <div class="sound-info">
+                  <span class="sound-emoji">☕</span>
+                  <span class="sound-name">Cafe</span>
+                </div>
+                <input type="range" class="sound-slider" id="volCafe" min="0" max="100" value="0">
+                <span class="sound-vol-val" id="valCafe">0%</span>
+              </div>
+
+              <div class="sound-track-item">
+                <div class="sound-info">
+                  <span class="sound-emoji">🌲</span>
+                  <span class="sound-name">Forest</span>
+                </div>
+                <input type="range" class="sound-slider" id="volForest" min="0" max="100" value="0">
+                <span class="sound-vol-val" id="valForest">0%</span>
+              </div>
+
+              <div class="sound-track-item">
+                <div class="sound-info">
+                  <span class="sound-emoji">🌊</span>
+                  <span class="sound-name">Ocean</span>
+                </div>
+                <input type="range" class="sound-slider" id="volOcean" min="0" max="100" value="0">
+                <span class="sound-vol-val" id="valOcean">0%</span>
+              </div>
+
+              <div class="sound-track-item">
+                <div class="sound-info">
+                  <span class="sound-emoji">🎧</span>
+                  <span class="sound-name">432Hz</span>
+                </div>
+                <input type="range" class="sound-slider" id="volBinaural" min="0" max="100" value="0">
+                <span class="sound-vol-val" id="valBinaural">0%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Daily Hydration & Wellness (Custom Goals & Logs) -->
+          <div class="card glass-card wellness-card">
+            <div class="card-header">
+              <div class="card-title">
+                <div class="card-icon-badge">
+                  <!-- Solid Water Droplet -->
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                  </svg>
+                </div>
+                <span>Hydration & Wellness</span>
+              </div>
+              <div class="wellness-target-wrap">
+                <button class="wellness-target-btn" id="waterTargetLabel" title="Click to edit daily water target">Goal: 2500 ml ✏️</button>
+              </div>
+            </div>
+
+            <!-- Inline Custom Goal Editor (Collapsible) -->
+            <div class="water-goal-edit-row hidden" id="waterGoalEditRow">
+              <label>Set Daily Goal (ml):</label>
+              <input type="number" id="customWaterGoalInput" value="2500" min="500" max="10000" step="100">
+              <button id="saveWaterGoalBtn" class="btn btn-xs btn-primary">Save</button>
+              <button id="cancelWaterGoalBtn" class="btn btn-xs btn-ghost">Cancel</button>
+            </div>
+
+            <div class="water-visualizer">
+              <div class="water-vessel">
+                <div class="water-wave-layer" id="waterLevelFill" style="height: 0%;"></div>
+              </div>
+              <div class="water-stats">
+                <div class="water-current" id="waterCurrentDisplay">0 <span class="unit">ml</span></div>
+                <div class="water-percentage" id="waterPercentDisplay">0% of daily goal</div>
+                
+                <!-- Quick Water Buttons & Custom Log Button -->
+                <div class="water-actions">
+                  <button id="addWater150" class="btn btn-water">+150 ml</button>
+                  <button id="addWater250" class="btn btn-water">+250 ml</button>
+                  <button id="addWater500" class="btn btn-water">+500 ml</button>
+                  <button id="addWater750" class="btn btn-water">+750 ml</button>
+                  <button id="customWaterLogBtn" class="btn btn-water btn-water-custom" title="Enter custom ml">+ Custom</button>
+                  <button id="resetWater" class="btn btn-sm btn-ghost">Reset</button>
+                </div>
+
+                <!-- Custom Water Log Row (Collapsible) -->
+                <div class="custom-water-log-row hidden" id="customWaterLogRow">
+                  <input type="number" id="customWaterLogInput" placeholder="Amount (e.g. 350 ml)" min="10" max="3000" step="50">
+                  <button id="saveCustomWaterLogBtn" class="btn btn-xs btn-primary">+ Add ml</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="micro-break-widget">
+              <div class="micro-break-info">
+                <span class="micro-break-icon">👁️</span>
+                <div>
+                  <div class="micro-break-title">20-20-20 Eye Break</div>
+                  <div class="micro-break-desc">Look 20ft away for 20s every 20m</div>
+                </div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="eyeBreakToggle">
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= TAB VIEW 2: DAILY TASKS (VERTICALLY STACKED) ================= -->
+      <section class="tab-view" id="viewTasks">
+        <div class="vertical-feed-layout">
+          
+          <div class="card glass-card task-card">
+            <div class="card-header">
+              <div class="card-title">
+                <div class="card-icon-badge">
+                  <!-- Solid Tasks Checklist -->
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-9 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"></path>
+                  </svg>
+                </div>
+                <span>Daily Task Flow</span>
+              </div>
+              <div class="task-progress-stat">
+                <span id="taskCountCompleted">0</span> / <span id="taskCountTotal">0</span> Done (<span id="taskPercentText">0%</span>)
+              </div>
+            </div>
+
+            <div class="progress-bar-container">
+              <div class="progress-bar-fill" id="taskProgressBar" style="width: 0%;"></div>
+            </div>
+
+            <form id="addTaskForm" class="task-input-form">
+              <div class="task-input-row">
+                <input type="text" id="taskInputText" placeholder="Add a task (e.g. 'Complete proposal @work')..." required maxlength="150">
+                <button type="submit" class="btn btn-primary btn-add-task">
+                  <span>Add Task</span>
+                </button>
+              </div>
+              <div class="task-options-row">
+                <div class="select-wrapper">
+                  <select id="taskPrioritySelect">
+                    <option value="high">🔴 High Priority</option>
+                    <option value="medium" selected>🟡 Medium Priority</option>
+                    <option value="low">🟢 Low Priority</option>
+                  </select>
+                </div>
+                <div class="select-wrapper">
+                  <select id="taskCategorySelect">
+                    <option value="work">💼 Work</option>
+                    <option value="personal">🏠 Personal</option>
+                    <option value="urgent">⚡ Urgent</option>
+                    <option value="health">🥗 Health</option>
+                  </select>
+                </div>
+                <input type="text" id="taskEstimateInput" placeholder="Est: 30m" maxlength="10">
+              </div>
+            </form>
+
+            <div class="task-filters">
+              <button class="filter-chip active" data-filter="all">All Tasks</button>
+              <button class="filter-chip" data-filter="pending">Pending</button>
+              <button class="filter-chip" data-filter="high">High Priority</button>
+              <button class="filter-chip" data-filter="work">Work</button>
+              <button class="filter-chip" data-filter="personal">Personal</button>
+              <button class="filter-chip" data-filter="completed">Completed</button>
+            </div>
+
+            <div class="task-list-container task-list-expanded">
+              <ul id="taskList" class="task-list">
+                <!-- Rendered dynamically -->
+              </ul>
+              <div class="empty-state hidden" id="taskEmptyState">
+                <span class="empty-icon">✨</span>
+                <p>No tasks here. Add your first goal for today!</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= TAB VIEW 3: EVERYDAY TOOLBOX (VERTICALLY STACKED) ================= -->
+      <section class="tab-view" id="viewToolbox">
+        <div class="vertical-feed-layout">
+          
+          <div class="card glass-card toolbox-card">
+            <div class="card-header">
+              <div class="card-title">
+                <div class="card-icon-badge">
+                  <!-- Solid Toolbox / Utilities -->
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M20 6h-4V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11z"></path>
+                  </svg>
+                </div>
+                <span>Everyday Micro-Toolbox</span>
+              </div>
+              
+              <div class="toolbox-tabs">
+                <button class="toolbox-tab active" data-tab="scratchpad">📝 Scratchpad Notes</button>
+                <button class="toolbox-tab" data-tab="expenses">💰 Daily Spend</button>
+                <button class="toolbox-tab" data-tab="calculator">🧮 Tip & Split</button>
+              </div>
+            </div>
+
+            <!-- Tool 1: Instant Scratchpad -->
+            <div class="toolbox-panel active" id="panelScratchpad">
+              <div class="scratchpad-toolbar">
+                <span class="scratchpad-stats" id="scratchStats">0 words | Auto-saved</span>
+                <div class="scratchpad-actions">
+                  <button id="copyScratchBtn" class="btn btn-xs btn-ghost">Copy</button>
+                  <button id="clearScratchBtn" class="btn btn-xs btn-ghost">Clear</button>
+                </div>
+              </div>
+              <textarea id="scratchpadArea" class="scratchpad-textarea scratchpad-expanded" placeholder="Paste links, temporary phone numbers, meeting notes, code snippets, or thoughts here... (Instantly saved)"></textarea>
+            </div>
+
+            <!-- Tool 2: Daily Expense Logger -->
+            <div class="toolbox-panel" id="panelExpenses">
+              <div class="expense-overview">
+                <div class="expense-stat">
+                  <span class="stat-label">Spent Today</span>
+                  <span class="stat-val" id="spentTodayVal">$0.00</span>
+                </div>
+                <div class="expense-stat">
+                  <span class="stat-label">Daily Budget</span>
+                  <span class="stat-val" id="dailyBudgetVal">$40.00</span>
+                </div>
+                <div class="expense-stat">
+                  <span class="stat-label">Remaining</span>
+                  <span class="stat-val" id="remainingBudgetVal">$40.00</span>
+                </div>
+              </div>
+
+              <div class="expense-bar-container">
+                <div class="expense-bar-fill" id="expenseBarFill" style="width: 0%;"></div>
+              </div>
+
+              <form id="addExpenseForm" class="expense-input-row">
+                <input type="text" id="expenseDescInput" placeholder="Item (e.g. Lunch)" required maxlength="40">
+                <input type="number" id="expenseAmountInput" placeholder="$ Amount" min="0.01" step="0.01" required>
+                <select id="expenseCatSelect">
+                  <option value="food">🍔 Food</option>
+                  <option value="coffee">☕ Coffee</option>
+                  <option value="transit">🚗 Transit</option>
+                  <option value="shopping">🛍️ Shop</option>
+                  <option value="other">📦 Other</option>
+                </select>
+                <button type="submit" class="btn btn-primary btn-sm">Log Expense</button>
+              </form>
+
+              <ul class="expense-list expense-list-expanded" id="expenseList">
+                <!-- Rendered dynamically -->
+              </ul>
+            </div>
+
+            <!-- Tool 3: Tip & Split Calculator -->
+            <div class="toolbox-panel" id="panelCalculator">
+              <div class="calc-grid">
+                <div class="calc-input-group">
+                  <label>Bill Amount ($)</label>
+                  <input type="number" id="calcBillAmount" placeholder="0.00" min="0" step="0.01">
+                </div>
+                <div class="calc-input-group">
+                  <label>Tip Percentage</label>
+                  <div class="tip-preset-buttons">
+                    <button class="tip-btn" data-tip="10">10%</button>
+                    <button class="tip-btn active" data-tip="15">15%</button>
+                    <button class="tip-btn" data-tip="18">18%</button>
+                    <button class="tip-btn" data-tip="20">20%</button>
+                  </div>
+                </div>
+                <div class="calc-input-group">
+                  <label>Split (People)</label>
+                  <div class="stepper-row">
+                    <button id="splitMinus" class="btn btn-sm btn-ghost">-</button>
+                    <span id="splitCount">1 Person</span>
+                    <button id="splitPlus" class="btn btn-sm btn-ghost">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="calc-result-box">
+                <div class="calc-result-item">
+                  <span>Tip Amount:</span>
+                  <strong id="resTipTotal">$0.00</strong>
+                </div>
+                <div class="calc-result-item">
+                  <span>Total Bill:</span>
+                  <strong id="resTotalBill">$0.00</strong>
+                </div>
+                <div class="calc-result-item">
+                  <span>Per Person:</span>
+                  <strong id="resPerPerson">$0.00</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= TAB VIEW 4: HABITS & REFLECTION (VERTICALLY STACKED) ================= -->
+      <section class="tab-view" id="viewHabits">
+        <div class="vertical-feed-layout">
+          
+          <!-- Card 1: Daily Habits & Streak Matrix -->
+          <div class="card glass-card habit-card">
+            <div class="card-header">
+              <div class="card-title">
+                <div class="card-icon-badge">
+                  <!-- Solid Habits Flame / Streak -->
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path>
+                  </svg>
+                </div>
+                <span>Daily Habits & Streaks</span>
+              </div>
+              <button id="addHabitModalTrigger" class="btn-text-link">+ Add Habit</button>
+            </div>
+
+            <div class="habit-list" id="habitList">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Card 2: Daily Mood & Energy Tracker with Custom Emoji Input -->
+          <div class="card glass-card mood-card">
+            <div class="card-header">
+              <div class="card-title">
+                <div class="card-icon-badge">
+                  <!-- Solid Mood Heart / Smile -->
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+                  </svg>
+                </div>
+                <span>Mood & Energy Level</span>
+              </div>
+              <span class="mood-saved-badge" id="moodStatusBadge">Log Today</span>
+            </div>
+
+            <!-- Quick Mood Presets & Custom Emoji Selector -->
+            <div class="mood-selector-grid" id="moodSelectorGrid">
+              <button class="mood-btn active" data-mood="radiant" data-emoji="⚡" title="Radiant">⚡</button>
+              <button class="mood-btn" data-mood="happy" data-emoji="😊" title="Happy">😊</button>
+              <button class="mood-btn" data-mood="calm" data-emoji="😌" title="Calm">😌</button>
+              <button class="mood-btn" data-mood="focused" data-emoji="🎯" title="Focused">🎯</button>
+              <button class="mood-btn" data-mood="neutral" data-emoji="😐" title="Neutral">😐</button>
+              <button class="mood-btn" data-mood="tired" data-emoji="🥱" title="Tired">🥱</button>
+              <button class="mood-btn" data-mood="stressed" data-emoji="😫" title="Stressed">😫</button>
+              <button class="mood-btn custom-emoji-toggle-btn" id="customMoodToggleBtn" title="Set Custom Emoji / Mood">🎨 +</button>
+            </div>
+
+            <!-- Custom Mood & Emoji Form (Collapsible) -->
+            <div class="custom-mood-row hidden" id="customMoodRow">
+              <input type="text" id="customEmojiInput" class="custom-emoji-input" placeholder="🔥" maxlength="4" title="Type any emoji">
+              <input type="text" id="customMoodNote" class="custom-mood-input" placeholder="How are you feeling? (e.g. Fired up!)" maxlength="60">
+              <button id="saveCustomMoodBtn" class="btn btn-xs btn-primary">Set</button>
+            </div>
+
+            <div class="energy-slider-group">
+              <div class="energy-label-row">
+                <div class="energy-title-wrap">
+                  <span id="currentMoodEmojiBadge" class="mood-preview-emoji">⚡</span>
+                  <span>Energy Battery</span>
+                </div>
+                <strong id="energyValueText">75%</strong>
+              </div>
+              <input type="range" id="energySlider" min="10" max="100" value="75" class="energy-range">
+            </div>
+          </div>
+
+          <!-- Card 3: Evening Reflection & Wrap-up -->
+          <div class="card glass-card reflection-card">
+            <div class="card-header">
+              <div class="card-title">
+                <div class="card-icon-badge">
+                  <!-- Solid Moon / Reflection -->
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M12.3 2a10 10 0 0 0-.19 20 10 10 0 0 0 8.35-4.5 1 1 0 0 0-.85-1.5h-.5A7.5 7.5 0 0 1 11.6 8.5c0-2.32 1.05-4.4 2.7-5.8a1 1 0 0 0-.7-1.7h-.3z"></path>
+                  </svg>
+                </div>
+                <span>Evening Reflection</span>
+              </div>
+              <span class="reflection-date" id="reflectionDateBadge">Wrap-up</span>
+            </div>
+
+            <div class="reflection-body">
+              <div class="rating-stars-row">
+                <span class="rating-label">Rate Today:</span>
+                <div class="stars-container" id="dayRatingStars">
+                  <span class="star" data-rating="1">★</span>
+                  <span class="star" data-rating="2">★</span>
+                  <span class="star" data-rating="3">★</span>
+                  <span class="star" data-rating="4">★</span>
+                  <span class="star" data-rating="5">★</span>
+                </div>
+              </div>
+
+              <div class="reflection-inputs">
+                <input type="text" id="reflWinInput" placeholder="🌟 What went really well today?" maxlength="140">
+                <input type="text" id="reflGratefulInput" placeholder="🙏 One thing you're grateful for..." maxlength="140">
+                <input type="text" id="reflImproveInput" placeholder="🎯 Focus area for tomorrow..." maxlength="140">
+              </div>
+
+              <button id="saveReflectionBtn" class="btn btn-primary btn-full">
+                <span>Save Reflection</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 4: Weekly Summary & Consistency Pulse -->
+          <div class="card glass-card weekly-card">
+            <div class="card-header">
+              <div class="card-title">
+                <div class="card-icon-badge">
+                  <!-- Solid Bar Graph / Consistency -->
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M4 9h4v11H4zm6-5h4v16h-4zm6 8h4v8h-4z"></path>
+                  </svg>
+                </div>
+                <span>Weekly Consistency Pulse</span>
+              </div>
+              <span class="weekly-streak-badge" id="overallStreakBadge">🔥 5 Days</span>
+            </div>
+
+            <div class="weekly-pulse-bars" id="weeklyPulseBars">
+              <!-- Rendered dynamically for Mon to Sun -->
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <span>DayCraft • 100% Private & Auto-Saved Offline</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ================= UNIVERSAL DOCKED BOTTOM NAVIGATION BAR (SOLID PREMIUM ICONS) ================= -->
+  <nav class="app-bottom-nav">
+    <button class="nav-tab-btn active" data-tab="focus">
+      <!-- Solid Target / Focus Icon -->
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+        <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm0-14a6 6 0 1 0 6 6 6 6 0 0 0-6-6zm0 10a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"></path>
+      </svg>
+      <span>Focus</span>
+    </button>
+    
+    <button class="nav-tab-btn" data-tab="tasks">
+      <!-- Solid Checklist Icon -->
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+        <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-9 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"></path>
+      </svg>
+      <span>Tasks</span>
+    </button>
+    
+    <button class="nav-tab-btn" data-tab="toolbox">
+      <!-- Solid Toolbox Icon -->
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+        <path d="M20 6h-4V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11z"></path>
+      </svg>
+      <span>Tools</span>
+    </button>
+    
+    <button class="nav-tab-btn" data-tab="habits">
+      <!-- Solid Habits Trend / Flame Icon -->
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-4-4 1.41-1.41L11 14.17l6.59-6.59L19 9l-8 8z"></path>
+      </svg>
+      <span>Habits</span>
+    </button>
+    
+    <button class="nav-tab-btn" id="bottomZenNavBtn">
+      <!-- Solid Zen Spark Icon -->
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+        <path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z"></path>
+      </svg>
+      <span>Zen</span>
+    </button>
+  </nav>
+
+  <!-- ================= GLOBAL FLOATING ALARM RINGING BANNER ================= -->
+  <div id="alarmRingingBanner" class="alarm-ringing-banner hidden">
+    <div class="alarm-banner-content">
+      <span class="alarm-banner-icon">🔔</span>
+      <div class="alarm-banner-text">
+        <strong>Timer Finished!</strong>
+        <span>Alarm is ringing</span>
+      </div>
+      <button id="globalStopAlarmBtn" class="btn btn-danger btn-stop-alarm">
+        🔕 Stop Alarm
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= FULLSCREEN ZEN FOCUS OVERLAY ================= -->
+  <div id="zenOverlay" class="zen-overlay hidden">
+    <div class="zen-content">
+      
+      <!-- Zen Header Bar -->
+      <div class="zen-header">
+        <div class="zen-live-indicator">
+          <span class="pulse-dot"></span>
+          <span class="zen-badge-text">ZEN FOCUS COCKPIT</span>
+        </div>
+        <div class="zen-header-right">
+          <span class="zen-clock-live" id="zenLiveClock">--:--</span>
+          <button id="exitZenBtn" class="btn btn-icon btn-ghost" title="Exit Zen (Esc)">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Zen Alarm Ringing Banner with Stop Button -->
+      <div id="zenAlarmBanner" class="zen-alarm-banner hidden">
+        <button id="zenStopAlarmBtn" class="btn btn-danger btn-lg btn-pulse-alarm">
+          🔕 Stop Alarm Sound
+        </button>
+      </div>
+
+      <!-- Active Goal / Task Spotlight Card -->
+      <div class="zen-active-task-card">
+        <div class="zen-task-meta">
+          <span class="zen-task-tag">🎯 #1 TODAY'S PRIORITY</span>
+          <button id="zenCompletePriorityBtn" class="btn-zen-complete-task" title="Mark this goal as completed">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"></path></svg>
+            <span>Mark Complete</span>
+          </button>
+        </div>
+        <div class="zen-task-spotlight" id="zenTaskSpotlight">
+          "Focus on your highest leverage task"
+        </div>
+      </div>
+
+      <!-- Zen Timer HUD with Phase & Progress Bar -->
+      <div class="zen-timer-hud">
+        <div class="zen-timer-phase-badge" id="zenPhaseBadge">🎯 Deep Work Interval</div>
+        <div class="zen-timer-huge" id="zenTimerDisplay">25:00</div>
+        
+        <!-- Live Session Progress Bar -->
+        <div class="zen-session-progress-wrap">
+          <div class="zen-session-progress-bar" id="zenSessionProgressBar"></div>
+        </div>
+        <div class="zen-progress-info">
+          <span id="zenProgressPercentage">0% Completed</span>
+          <span id="zenSessionTimeRemaining">25:00 Remaining</span>
+        </div>
+      </div>
+
+      <!-- Daily Focus & Wellness Metrics HUD (4 Glass Cards) -->
+      <div class="zen-metrics-grid">
+        <div class="zen-metric-card">
+          <div class="zen-metric-header">
+            <span class="zen-metric-icon">🎯</span>
+            <span class="zen-metric-title">Sessions Target</span>
+          </div>
+          <div class="zen-metric-val" id="zenSessionsCount">1 / 4 Done</div>
+          <div class="zen-session-dots" id="zenSessionDots">
+            <!-- Dynamic session indicator pills -->
+          </div>
+        </div>
+
+        <div class="zen-metric-card">
+          <div class="zen-metric-header">
+            <span class="zen-metric-icon">⏱️</span>
+            <span class="zen-metric-title">Focus Time Today</span>
+          </div>
+          <div class="zen-metric-val" id="zenTotalMins">25m Focused</div>
+          <span class="zen-metric-sub" id="zenDailyGoalSub">Daily Target: 100m</span>
+        </div>
+
+        <div class="zen-metric-card">
+          <div class="zen-metric-header">
+            <span class="zen-metric-icon">💧</span>
+            <span class="zen-metric-title">Hydration Level</span>
+          </div>
+          <div class="zen-metric-val" id="zenWaterStatus">750 / 2500 ml</div>
+          <button id="zenQuickSipBtn" class="btn btn-xs btn-water-zen" title="Log quick 250ml glass of water">
+            +250ml Sip 💧
+          </button>
+        </div>
+
+        <div class="zen-metric-card">
+          <div class="zen-metric-header">
+            <span class="zen-metric-icon">🔥</span>
+            <span class="zen-metric-title">Consistency Streak</span>
+          </div>
+          <div class="zen-metric-val" id="zenStreakStatus">5 Days</div>
+          <span class="zen-metric-sub">Daily Discipline Compounding</span>
+        </div>
+      </div>
+
+      <!-- Next Up Task Peek -->
+      <div class="zen-next-task-row" id="zenNextTaskRow">
+        <span class="zen-next-label">Next Up in Tasks:</span>
+        <span class="zen-next-title" id="zenNextTaskText">Deep focus session on key deliverables</span>
+      </div>
+
+      <!-- Quick Set Minutes & Seconds in Full Screen -->
+      <div class="zen-time-setter" id="zenTimeSetter">
+        <div class="zen-quick-adjust-row">
+          <button type="button" class="btn btn-xs btn-ghost zen-adjust-btn" data-sec="-300">-5m</button>
+          <button type="button" class="btn btn-xs btn-ghost zen-adjust-btn" data-sec="-60">-1m</button>
+          <button type="button" class="btn btn-xs btn-ghost zen-adjust-btn" data-sec="-10">-10s</button>
+          <button type="button" class="btn btn-xs btn-secondary zen-custom-time-toggle" id="zenCustomTimeToggleBtn">⏱️ Set Min/Sec</button>
+          <button type="button" class="btn btn-xs btn-ghost zen-adjust-btn" data-sec="10">+10s</button>
+          <button type="button" class="btn btn-xs btn-ghost zen-adjust-btn" data-sec="60">+1m</button>
+          <button type="button" class="btn btn-xs btn-ghost zen-adjust-btn" data-sec="300">+5m</button>
+        </div>
+
+        <!-- Custom Min & Sec Inputs Panel -->
+        <div class="zen-custom-inputs-row hidden" id="zenCustomInputsRow">
+          <div class="zen-input-group">
+            <input type="number" id="zenMinInput" min="0" max="180" placeholder="Min" value="25">
+            <span>m</span>
+          </div>
+          <span class="zen-colon">:</span>
+          <div class="zen-input-group">
+            <input type="number" id="zenSecInput" min="0" max="59" placeholder="Sec" value="00">
+            <span>s</span>
+          </div>
+          <button type="button" id="zenApplyCustomTimeBtn" class="btn btn-xs btn-primary">Set Time</button>
+        </div>
+      </div>
+
+      <!-- Primary Zen Controls -->
+      <div class="zen-controls">
+        <button id="zenTimerToggleBtn" class="btn btn-primary btn-xl">
+          <span id="zenBtnText">Start Focus</span>
+        </button>
+        <button id="zenResetTimerBtn" class="btn btn-secondary btn-xl" title="Reset Timer">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M12 4V1L8 5l4 4V6a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z"></path>
+          </svg>
+        </button>
+        <button id="zenSkipTimerBtn" class="btn btn-ghost btn-xl" title="Skip Session">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Zen Ambient Audio Dock -->
+      <div class="zen-audio-bar">
+        <span class="zen-audio-label">Soundscape:</span>
+        <button class="zen-sound-pill active" data-sound="rain">🌧️ Rain</button>
+        <button class="zen-sound-pill" data-sound="cafe">☕ Cafe</button>
+        <button class="zen-sound-pill" data-sound="forest">🌲 Forest</button>
+        <button class="zen-sound-pill" data-sound="ocean">🌊 Ocean</button>
+        <button class="zen-sound-pill" data-sound="binaural">🎧 432Hz</button>
+        <button class="zen-sound-pill" data-sound="mute">🔇 Mute</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FULLSCREEN AMBIENT SOUNDSCAPE STUDIO OVERLAY ================= -->
+  <div id="soundscapeFullscreenOverlay" class="soundscape-fullscreen-overlay hidden">
+    <div class="soundscape-fullscreen-content">
+      <div class="soundscape-fullscreen-header">
+        <div class="card-icon-badge">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+            <path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"></path>
+          </svg>
+        </div>
+        <div class="soundscape-fullscreen-title">
+          <h2>Ambient Soundscape Studio</h2>
+          <span id="fsSoundTimerBadge" class="fs-sound-timer-badge">Continuous ∞</span>
+        </div>
+        <button id="exitSoundscapeFullscreenBtn" class="btn btn-icon btn-ghost" title="Exit Fullscreen Sound Studio">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Animated Sound Wave Aura -->
+      <div class="sound-wave-aura">
+        <div class="sound-wave-bar"></div>
+        <div class="sound-wave-bar"></div>
+        <div class="sound-wave-bar"></div>
+        <div class="sound-wave-bar"></div>
+        <div class="sound-wave-bar"></div>
+      </div>
+
+      <!-- Quick Preset Soundscapes -->
+      <div class="fs-presets-row">
+        <button class="soundscape-preset-pill" data-preset="rain">🌧️ Rain (60%)</button>
+        <button class="soundscape-preset-pill" data-preset="cafe">☕ Cafe (50%)</button>
+        <button class="soundscape-preset-pill" data-preset="forest">🌲 Forest (70%)</button>
+        <button class="soundscape-preset-pill" data-preset="ocean">🌊 Ocean (60%)</button>
+        <button class="soundscape-preset-pill" data-preset="binaural">🎧 432Hz (80%)</button>
+      </div>
+
+      <!-- Continuous Playback / Sleep Timer Options -->
+      <div class="fs-audio-timer-group">
+        <label>Continuous Playback / Sleep Timer:</label>
+        <div class="audio-timer-options" id="fsAudioTimerOptions">
+          <button class="audio-timer-btn active" data-timer="continuous">∞ Continuous</button>
+          <button class="audio-timer-btn" data-timer="15">15 mins</button>
+          <button class="audio-timer-btn" data-timer="30">30 mins</button>
+          <button class="audio-timer-btn" data-timer="60">60 mins</button>
+        </div>
+      </div>
+
+      <!-- Fullscreen Sound Mixer Sliders -->
+      <div class="fs-sound-tracks-grid">
+        <div class="sound-track-item">
+          <div class="sound-info">
+            <span class="sound-emoji">🌧️</span>
+            <span class="sound-name">Rainfall</span>
+          </div>
+          <input type="range" class="sound-slider" id="fsVolRain" min="0" max="100" value="0">
+          <span class="sound-vol-val" id="fsValRain">0%</span>
+        </div>
+
+        <div class="sound-track-item">
+          <div class="sound-info">
+            <span class="sound-emoji">☕</span>
+            <span class="sound-name">Cafe</span>
+          </div>
+          <input type="range" class="sound-slider" id="fsVolCafe" min="0" max="100" value="0">
+          <span class="sound-vol-val" id="fsValCafe">0%</span>
+        </div>
+
+        <div class="sound-track-item">
+          <div class="sound-info">
+            <span class="sound-emoji">🌲</span>
+            <span class="sound-name">Forest</span>
+          </div>
+          <input type="range" class="sound-slider" id="fsVolForest" min="0" max="100" value="0">
+          <span class="sound-vol-val" id="fsValForest">0%</span>
+        </div>
+
+        <div class="sound-track-item">
+          <div class="sound-info">
+            <span class="sound-emoji">🌊</span>
+            <span class="sound-name">Ocean</span>
+          </div>
+          <input type="range" class="sound-slider" id="fsVolOcean" min="0" max="100" value="0">
+          <span class="sound-vol-val" id="fsValOcean">0%</span>
+        </div>
+
+        <div class="sound-track-item">
+          <div class="sound-info">
+            <span class="sound-emoji">🎧</span>
+            <span class="sound-name">432Hz</span>
+          </div>
+          <input type="range" class="sound-slider" id="fsVolBinaural" min="0" max="100" value="0">
+          <span class="sound-vol-val" id="fsValBinaural">0%</span>
+        </div>
+      </div>
+
+      <div class="fs-sound-actions">
+        <button id="fsResetSoundscapeBtn" class="btn btn-secondary btn-lg">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 4V1L8 5l4 4V6a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z"></path></svg>
+          <span>Reset All Volumes</span>
+        </button>
+        <button id="fsMasterMuteBtn" class="btn btn-secondary btn-lg">Mute All Sounds</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= DAILY GOAL SETTING KICKOFF MODAL POPUP ================= -->
+  <div id="dailyGoalKickoffModal" class="modal-backdrop hidden">
+    <div class="modal-dialog kickoff-modal-dialog">
+      <div class="modal-header">
+        <div class="card-title">
+          <div class="card-icon-badge">
+            <!-- Solid Trophy / Target Glyph -->
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+              <path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94A5.01 5.01 0 0 0 11 15.9V19H8v2h8v-2h-3v-3.1c1.92-.37 3.42-1.89 3.61-3.96C19.08 11.63 21 9.55 21 7V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="modal-title">Set Today's Daily Goals</h3>
+            <p class="modal-subtitle">Start your day with clear intention and deliberate focus.</p>
+          </div>
+        </div>
+        <button id="closeDailyGoalModal" class="modal-close">&times;</button>
+      </div>
+
+      <form id="dailyGoalKickoffForm" class="modal-body">
+        <div class="settings-group">
+          <label>🎯 #1 Main Focus Priority For Today</label>
+          <input type="text" id="kickoffPriorityInput" placeholder="What is the single most important task to finish today?" required maxlength="120">
+          
+          <!-- Past Goals Dropdown -->
+          <div class="past-goals-section" id="pastGoalsSection">
+            <label class="past-goals-label">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7a6.97 6.97 0 0 1-4.95-2.05l-1.41 1.41A8.96 8.96 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"></path></svg>
+              Previously Used Goals
+            </label>
+            <div class="past-goals-list" id="pastGoalsList">
+              <!-- Dynamically populated from localStorage history -->
+            </div>
+          </div>
+
+          <div class="kickoff-goal-suggestions">
+            <button type="button" class="goal-chip">🚀 Ship Milestone</button>
+            <button type="button" class="goal-chip">📚 Deep Study (2h)</button>
+            <button type="button" class="goal-chip">🥗 30m Workout</button>
+            <button type="button" class="goal-chip">📝 Writing Block</button>
+          </div>
+        </div>
+
+        <div class="kickoff-grid-row">
+          <div class="settings-group">
+            <label>💧 Daily Water Goal (ml)</label>
+            <input type="number" id="kickoffWaterGoalInput" value="2500" min="500" max="10000" step="100" required>
+          </div>
+          <div class="settings-group">
+            <label>⏱️ Focus Target (Sessions)</label>
+            <input type="number" id="kickoffFocusTargetInput" value="4" min="1" max="16" required>
+          </div>
+        </div>
+
+        <div class="modal-btn-row mt-3">
+          <button type="submit" class="btn btn-primary btn-full btn-lg">
+            <span>🚀 Lock In Daily Goals & Begin</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= SETTINGS & DATA MODAL ================= -->
+  <div id="settingsModal" class="modal-backdrop hidden">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Settings & Preferences</h3>
+        <button id="closeSettingsModal" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="settings-group">
+          <label>Theme</label>
+          <select id="settingThemeSelect">
+            <option value="theme-dark">⬛ Monochrome Dark</option>
+            <option value="theme-light">⬜ Monochrome Light</option>
+          </select>
+        </div>
+        <div class="settings-group">
+          <label>Push Notifications & Popups</label>
+          <button id="enableNotificationsBtn" class="btn btn-secondary btn-full">
+            🔔 Enable Focus & Wellness Reminders
+          </button>
+        </div>
+        <div class="settings-group">
+          <label>Daily Water Goal (ml)</label>
+          <input type="number" id="settingWaterGoal" value="2500" step="100">
+        </div>
+        <div class="settings-group">
+          <label>Daily Spend Limit ($)</label>
+          <input type="number" id="settingDailyBudget" value="40" step="5">
+        </div>
+        <div class="settings-group">
+          <label>Pomodoro Duration (minutes)</label>
+          <input type="number" id="settingPomoTime" value="25" min="1" max="90">
+        </div>
+        
+        <hr class="modal-divider">
+        
+        <h4>Data & Privacy</h4>
+        <p class="modal-help">All your data is stored automatically on your device. No cloud. No account needed.</p>
+        <div class="auto-save-badge">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"></path></svg>
+          <span>Auto-saved to device storage</span>
+        </div>
+        <div class="modal-btn-row mt-3">
+          <button id="clearAllDataBtn" class="btn btn-danger-outline">⚠️ Reset All Data</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= ADD HABIT MODAL ================= -->
+  <div id="habitModal" class="modal-backdrop hidden">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Add Daily Habit</h3>
+        <button id="closeHabitModal" class="modal-close">&times;</button>
+      </div>
+      <form id="addHabitForm" class="modal-body">
+        <div class="settings-group">
+          <label>Habit Name</label>
+          <input type="text" id="newHabitName" placeholder="e.g. 20m Morning Cardio, Read 10 Pages..." required maxlength="50">
+        </div>
+        <div class="settings-group">
+          <label>Emoji Icon</label>
+          <input type="text" id="newHabitEmoji" value="⚡" maxlength="4">
+        </div>
+        <div class="settings-group">
+          <label>Category</label>
+          <select id="newHabitCategory">
+            <option value="health">🥗 Health & Fitness</option>
+            <option value="mind">🧠 Mind & Learning</option>
+            <option value="work">💼 Work & Productivity</option>
+            <option value="lifestyle">✨ Lifestyle & Zen</option>
+          </select>
+        </div>
+        <div class="modal-btn-row">
+          <button type="submit" class="btn btn-primary btn-full">Add Habit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= KEYBOARD SHORTCUTS MODAL ================= -->
+  <div id="shortcutsModal" class="modal-backdrop hidden">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Keyboard Shortcuts</h3>
+        <button id="closeShortcutsModal" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="shortcut-item"><kbd>1</kbd> <span>Jump to Focus Studio</span></div>
+        <div class="shortcut-item"><kbd>2</kbd> <span>Jump to Daily Tasks</span></div>
+        <div class="shortcut-item"><kbd>3</kbd> <span>Jump to Everyday Toolbox</span></div>
+        <div class="shortcut-item"><kbd>4</kbd> <span>Jump to Habits & Mood</span></div>
+        <div class="shortcut-item"><kbd>Space</kbd> <span>Start / Pause Focus Timer</span></div>
+        <div class="shortcut-item"><kbd>Z</kbd> <span>Toggle Fullscreen Zen Focus</span></div>
+        <div class="shortcut-item"><kbd>N</kbd> <span>Add New Task</span></div>
+        <div class="shortcut-item"><kbd>W</kbd> <span>Quick Log +250ml Water</span></div>
+        <div class="shortcut-item"><kbd>M</kbd> <span>Mute / Unmute Soundscapes</span></div>
+        <div class="shortcut-item"><kbd>Esc</kbd> <span>Exit Modals or Zen Mode</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= CUSTOM TIMER CREATOR MODAL POPUP ================= -->
+  <div id="customTimerModal" class="modal-backdrop hidden">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="card-title">
+          <div class="card-icon-badge">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+              <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 10.59V7a1 1 0 0 0-2 0v5a1 1 0 0 0 .29.71l3 3a1 1 0 0 0 1.42-1.42z"></path>
+            </svg>
+          </div>
+          <h3 class="modal-title">Create Custom Timer</h3>
+        </div>
+        <button id="closeCustomTimerModal" class="modal-close">&times;</button>
+      </div>
+      <form id="customTimerModalForm" class="modal-body">
+        <div class="settings-group">
+          <label>Timer Label / Task Name</label>
+          <input type="text" id="customTimerModalName" placeholder="e.g. Deep Writing, Rapid Sprint, Power Nap" required maxlength="30">
+        </div>
+        <div class="settings-group">
+          <label>Duration (Minutes)</label>
+          <input type="number" id="customTimerModalMins" value="15" min="1" max="240" required>
+        </div>
+        <div class="settings-group">
+          <label class="custom-checkbox-label">
+            <input type="checkbox" id="customTimerAutoZen" checked>
+            <span>Auto-launch in Fullscreen Zen Mode</span>
+          </label>
+        </div>
+        <div class="modal-btn-row mt-3">
+          <button type="submit" class="btn btn-primary btn-full">Create & Start Timer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= FULLSCREEN 20-20-20 EYE BREAK OVERLAY HUD ================= -->
+  <div id="eyeBreakOverlay" class="eye-break-overlay hidden">
+    <div class="eye-break-content">
+      <div class="eye-break-icon-wrap">
+        <svg viewBox="0 0 24 24" width="48" height="48" fill="currentColor">
+          <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"></path>
+        </svg>
+      </div>
+
+      <h2 class="eye-break-headline">20-20-20 Eye Rest & Stretch</h2>
+      <p class="eye-break-subtext">Look away from your screen at an object at least 20 feet away to completely relax your eye muscles.</p>
+
+      <div class="eye-break-circle-container">
+        <svg class="eye-break-svg" viewBox="0 0 200 200">
+          <circle class="eye-break-track" cx="100" cy="100" r="80"></circle>
+          <circle class="eye-break-progress" id="eyeBreakProgressCircle" cx="100" cy="100" r="80"></circle>
+        </svg>
+        <div class="eye-break-digits" id="eyeBreakCountdown">20s</div>
+      </div>
+
+      <div class="eye-break-actions">
+        <button id="closeEyeBreakBtn" class="btn btn-secondary btn-lg">Skip / Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
+
+  <!-- JavaScript Modules with Cache Busters -->
+  <script src="js/store.js?v=8.0"></script>
+  <script src="js/audio.js?v=8.0"></script>
+  <script src="js/utils/confetti.js?v=8.0"></script>
+  <script src="js/utils/permissions.js?v=8.0"></script>
+  <script src="js/modules/briefing.js?v=8.0"></script>
+  <script src="js/modules/focus.js?v=8.0"></script>
+  <script src="js/modules/wellness.js?v=8.0"></script>
+  <script src="js/modules/tasks.js?v=8.0"></script>
+  <script src="js/modules/toolbox.js?v=8.0"></script>
+  <script src="js/modules/reflection.js?v=8.0"></script>
+  <script src="js/app.js?v=8.0"></script>
+
+  <!-- Service Worker Registration for Background Support -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').then((reg) => {
+          console.log("DayCraft: ServiceWorker registered successfully:", reg.scope);
+        }).catch((err) => {
+          console.warn("DayCraft: ServiceWorker registration error:", err);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
