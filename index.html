@@ -31,6 +31,11 @@
 
   <!-- Google AdSense / AdMob Monetization (Publisher ID: pub-9957821482976268) -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9957821482976268" crossorigin="anonymous"></script>
+
+  <!-- Firebase Authentication & Realtime Google Sync SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 <body class="theme-dark">
 
@@ -1305,6 +1310,13 @@
 
         <hr class="modal-divider">
         
+        <h4>Google Account & Subscription Sync</h4>
+        <div class="firebase-auth-status-card mb-2">
+          <!-- Dynamically populated by FirebaseAuthManager -->
+        </div>
+
+        <hr class="modal-divider">
+        
         <h4>Google Play & Updates</h4>
         <div class="settings-action-row">
           <button id="settingsRateAppBtn" class="btn btn-secondary btn-full mb-2">
@@ -1475,22 +1487,20 @@
           <div class="pro-benefit-item">
             <span class="benefit-check">✓</span>
             <div>
-              <strong>Unlimited Custom Timers</strong>
-              <p>Create & save infinite custom focus interval presets.</p>
-            </div>
-          </div>
-          <div class="pro-benefit-item">
-            <span class="benefit-check">✓</span>
-            <div>
-              <strong>Google Play License Binding (No Login)</strong>
-              <p>Directly bound to your phone's Google Play account. Restores automatically anytime without passwords.</p>
+              <strong>Google Play Billing & Firebase Sync</strong>
+              <p>Paid securely through Google Play Store. Syncs real-time subscription status to your Google Account.</p>
             </div>
           </div>
         </div>
 
+        <!-- Firebase Google Authentication Card -->
+        <div class="firebase-auth-status-card mb-3">
+          <!-- Dynamically updated by FirebaseAuthManager -->
+        </div>
+
         <div class="pro-actions-col">
           <button id="buyProBtn" class="btn btn-primary btn-lg btn-full mb-2">
-            ⚡ Pay ₹399 — Unlock Lifetime Pro
+            🚀 Pay via Google Play Store (₹399)
           </button>
           
           <button id="restoreProBtn" class="btn btn-ghost btn-sm btn-full text-muted">
@@ -1582,6 +1592,7 @@
   <script src="js/modules/tasks.js?v=8.0"></script>
   <script src="js/modules/toolbox.js?v=8.0"></script>
   <script src="js/modules/reflection.js?v=8.0"></script>
+  <script src="js/modules/firebaseAuth.js?v=8.0"></script>
   <script src="js/app.js?v=8.0"></script>
 
   <!-- Service Worker Registration for Background Support -->
