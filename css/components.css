@@ -2807,4 +2807,12 @@ input:checked + .slider::before {
   color: var(--text-muted);
 }
 
+.priority-text.priority-completed,
+.zen-task-spotlight.priority-completed {
+  text-decoration: line-through;
+  opacity: 0.65;
+  color: var(--success) !important;
+}
+
+
 

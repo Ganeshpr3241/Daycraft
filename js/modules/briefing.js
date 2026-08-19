@@ -354,13 +354,25 @@ class BriefingModule {
   renderPriority(priority) {
     if (!priority) return;
     const text = typeof priority === 'string' ? priority : (priority.text || '');
+    const completed = typeof priority === 'object' ? !!priority.completed : false;
     const display = text ? `"${text}"` : "Set your single most important goal for today...";
     
     if (this.priorityText) {
       this.priorityText.textContent = display;
+      this.priorityText.classList.toggle('priority-completed', completed);
+      
+      const badge = document.querySelector('.priority-label .priority-badge-wrap');
+      if (badge && text) {
+        if (completed) {
+          badge.innerHTML = `<span class="badge badge-success"><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"></path></svg><span>PRIORITY COMPLETED</span></span>`;
+        } else {
+          badge.innerHTML = `<span class="badge badge-primary"><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm0-14a6 6 0 1 0 6 6 6 6 0 0 0-6-6zm0 10a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"></path></svg><span>MAIN FOCUS TODAY</span></span>`;
+        }
+      }
     }
     if (this.zenTaskSpotlight) {
       this.zenTaskSpotlight.textContent = display;
+      this.zenTaskSpotlight.classList.toggle('priority-completed', completed);
     }
   }
 }
