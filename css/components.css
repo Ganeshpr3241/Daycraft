@@ -2845,7 +2845,8 @@ input:checked + .slider::before {
 }
 
 .ad-content-wrapper {
-  min-height: 90px;
+  min-height: 70px;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2853,6 +2854,71 @@ input:checked + .slider::before {
   border-radius: var(--btn-radius);
   overflow: hidden;
 }
+
+.ad-house-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(217, 119, 6, 0.12));
+  border: 1px solid rgba(245, 158, 11, 0.20);
+  border-radius: var(--btn-radius);
+  cursor: pointer;
+  transition: all var(--trans-fast);
+}
+
+.ad-house-fallback:hover {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.14), rgba(217, 119, 6, 0.18));
+  border-color: rgba(245, 158, 11, 0.35);
+  transform: translateY(-1px);
+}
+
+.house-left {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.house-emoji {
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+
+.house-info strong {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 2px;
+}
+
+.house-info p {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.docked-house-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.35rem 0.65rem;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(217, 119, 6, 0.16));
+  border-radius: 6px;
+  cursor: pointer;
+  gap: 0.40rem;
+}
+
+.docked-house-title {
+  font-size: 0.76rem;
+  color: var(--text-sub);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 
 /* ==========================================================================
    STICKY DOCKED BOTTOM AD BANNER (ABOVE NAVBAR)
