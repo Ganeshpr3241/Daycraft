@@ -2855,6 +2855,79 @@ input:checked + .slider::before {
 }
 
 /* ==========================================================================
+   STICKY DOCKED BOTTOM AD BANNER (ABOVE NAVBAR)
+   ========================================================================== */
+
+.docked-bottom-ad-banner {
+  position: fixed;
+  bottom: 60px; /* Sits right on top of the 56px bottom navigation bar */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  background: rgba(24, 24, 27, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border-subtle);
+  border-left: 1px solid var(--border-subtle);
+  border-right: 1px solid var(--border-subtle);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  z-index: 998;
+  padding: 0.25rem 0.50rem 0.35rem 0.50rem;
+  box-sizing: border-box;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.25);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.docked-bottom-ad-banner.collapsed {
+  transform: translate(-50%, 120%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.docked-ad-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.25rem 0.15rem 0.25rem;
+}
+
+.docked-ad-badge {
+  font-family: var(--font-mono);
+  font-size: 0.60rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.docked-ad-close-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0.25rem;
+  transition: color var(--trans-fast);
+}
+
+.docked-ad-close-btn:hover {
+  color: var(--text-main);
+}
+
+.docked-ad-body {
+  width: 100%;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--bg-subtle);
+}
+
+/* ==========================================================================
    IN-APP PLAY STORE RATING MODAL
    ========================================================================== */
 

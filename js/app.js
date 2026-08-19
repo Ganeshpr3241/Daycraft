@@ -261,6 +261,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const openZen = () => {
     if (zenOverlay) zenOverlay.classList.remove('hidden');
+    const dockedAd = document.getElementById('dockedAdBanner');
+    if (dockedAd) dockedAd.classList.add('collapsed');
+
     if (document.documentElement.requestFullscreen) {
       document.documentElement.requestFullscreen().catch(() => {});
     }
@@ -275,6 +278,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const closeZen = () => {
     if (zenOverlay) zenOverlay.classList.add('hidden');
+    const dockedAd = document.getElementById('dockedAdBanner');
+    if (dockedAd && !sessionStorage.getItem('daycraft_ad_collapsed')) {
+      dockedAd.classList.remove('collapsed');
+    }
+
     if (document.fullscreenElement && document.exitFullscreen) {
       document.exitFullscreen().catch(() => {});
     }
@@ -566,6 +574,17 @@ document.addEventListener('DOMContentLoaded', () => {
     openPlayStoreUpdateBtn.addEventListener('click', () => {
       window.open(playStoreUrl, '_blank');
       if (updateAvailableModal) updateAvailableModal.classList.add('hidden');
+    });
+  }
+
+  // --- STICKY DOCKED BOTTOM AD BANNER ---
+  const dockedAdBanner = document.getElementById('dockedAdBanner');
+  const closeDockedAdBtn = document.getElementById('closeDockedAdBtn');
+  if (closeDockedAdBtn && dockedAdBanner) {
+    closeDockedAdBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dockedAdBanner.classList.add('collapsed');
+      sessionStorage.setItem('daycraft_ad_collapsed', 'true');
     });
   }
 
