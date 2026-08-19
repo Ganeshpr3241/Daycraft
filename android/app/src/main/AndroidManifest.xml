@@ -39,8 +39,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
+        <!-- Google AdMob Publisher Integration (pub-9957821482976268) -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-9957821482976268~1234567890"/>
 
         <activity
             android:name=".MainActivity"

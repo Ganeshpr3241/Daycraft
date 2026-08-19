@@ -28,6 +28,9 @@
   <link rel="stylesheet" href="css/main.css?v=8.0">
   <link rel="stylesheet" href="css/components.css?v=8.0">
   <link rel="stylesheet" href="css/responsive.css?v=8.0">
+
+  <!-- Google AdSense / AdMob Monetization (Publisher ID: pub-9957821482976268) -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9957821482976268" crossorigin="anonymous"></script>
 </head>
 <body class="theme-dark">
 
@@ -589,7 +592,21 @@
                 <div class="calc-result-item">
                   <span>Per Person:</span>
                   <strong id="resPerPerson">$0.00</strong>
-                </div>
+              </div>
+            </div>
+
+            <!-- In-Page Sponsored Ad Unit (Google AdSense/AdMob: pub-9957821482976268) -->
+            <div class="in-page-ad-card" id="inPageAdContainer">
+              <div class="ad-badge-header">
+                <span class="ad-badge-label">SPONSORED</span>
+              </div>
+              <div class="ad-content-wrapper">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-9957821482976268"
+                     data-ad-slot="auto"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
               </div>
             </div>
           </div>
@@ -1165,6 +1182,18 @@
         
         <hr class="modal-divider">
         
+        <h4>Google Play & Updates</h4>
+        <div class="settings-action-row">
+          <button id="settingsRateAppBtn" class="btn btn-secondary btn-full mb-2">
+            ⭐ Rate DayCraft on Google Play
+          </button>
+          <button id="settingsCheckUpdateBtn" class="btn btn-ghost btn-full">
+            🔄 Check for Updates
+          </button>
+        </div>
+
+        <hr class="modal-divider">
+        
         <h4>Data & Privacy</h4>
         <p class="modal-help">All your data is stored automatically on your device. No cloud. No account needed.</p>
         <div class="auto-save-badge">
@@ -1284,12 +1313,74 @@
         <svg class="eye-break-svg" viewBox="0 0 200 200">
           <circle class="eye-break-track" cx="100" cy="100" r="80"></circle>
           <circle class="eye-break-progress" id="eyeBreakProgressCircle" cx="100" cy="100" r="80"></circle>
-        </svg>
-        <div class="eye-break-digits" id="eyeBreakCountdown">20s</div>
-      </div>
-
       <div class="eye-break-actions">
         <button id="closeEyeBreakBtn" class="btn btn-secondary btn-lg">Skip / Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= IN-APP PLAY STORE RATING PROMPT MODAL ================= -->
+  <div id="ratingModal" class="modal-backdrop hidden">
+    <div class="modal-dialog rating-modal-dialog">
+      <div class="rating-modal-content text-center">
+        <div class="rating-icon-wrap">
+          <span class="rating-emoji">⭐</span>
+        </div>
+        <h3 class="rating-title">Enjoying DayCraft?</h3>
+        <p class="rating-desc">
+          Your review helps us keep DayCraft 100% private, offline, and free from intrusive popups.
+        </p>
+
+        <div class="rating-stars-row" id="ratingStarsRow">
+          <span class="star-btn" data-star="1">★</span>
+          <span class="star-btn" data-star="2">★</span>
+          <span class="star-btn" data-star="3">★</span>
+          <span class="star-btn" data-star="4">★</span>
+          <span class="star-btn active" data-star="5">★</span>
+        </div>
+
+        <div class="rating-actions-column">
+          <button id="submitPlayStoreReviewBtn" class="btn btn-primary btn-lg btn-full mb-2">
+            ⭐ Rate 5 Stars on Google Play
+          </button>
+          <div class="rating-sub-actions">
+            <button id="remindRatingLaterBtn" class="btn btn-ghost btn-sm">Remind Me Later</button>
+            <button id="neverAskRatingBtn" class="btn btn-ghost btn-sm text-muted">Don't Ask Again</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= GOOGLE PLAY UPDATE AVAILABLE MODAL ================= -->
+  <div id="updateAvailableModal" class="modal-backdrop hidden">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="card-title">
+          <div class="card-icon-badge">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.5v-4h3l-4-5-4 5h3v4h2z"></path>
+            </svg>
+          </div>
+          <div>
+            <h3 class="modal-title">New Update Available!</h3>
+            <span class="badge badge-primary">v1.1.0 Ready</span>
+          </div>
+        </div>
+        <button id="closeUpdateModalBtn" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="mb-3">A new version of DayCraft is available on Google Play with improved sound synthesis, battery optimizations, and new focus features.</p>
+        <div class="update-highlights">
+          <div class="update-highlight-item">⚡ Faster offline state restoration</div>
+          <div class="update-highlight-item">🎧 Enhanced 432Hz binaural audio clarity</div>
+          <div class="update-highlight-item">🎯 Refined Zen Focus HUD telemetry</div>
+        </div>
+        <div class="modal-btn-row mt-4">
+          <button id="openPlayStoreUpdateBtn" class="btn btn-primary btn-full">
+            🚀 Update Now from Google Play
+          </button>
+        </div>
       </div>
     </div>
   </div>

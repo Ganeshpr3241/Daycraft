@@ -599,6 +599,7 @@ class FocusModule {
         });
       }
       this.updateStatusLabel("Session Completed! 🎉");
+      if (window.checkAndPromptRating) window.checkAndPromptRating();
     } else {
       this.updateStatusLabel("Session Skipped");
     }

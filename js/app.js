@@ -463,8 +463,111 @@ document.addEventListener('DOMContentLoaded', () => {
       if (shortcutsModal) shortcutsModal.classList.add('hidden');
       const habitModal = document.getElementById('habitModal');
       if (habitModal) habitModal.classList.add('hidden');
+      const ratingModal = document.getElementById('ratingModal');
+      if (ratingModal) ratingModal.classList.add('hidden');
+      const updateModal = document.getElementById('updateAvailableModal');
+      if (updateModal) updateModal.classList.add('hidden');
     }
   });
+
+  // --- GOOGLE PLAY STORE RATING SYSTEM ---
+  const ratingModal = document.getElementById('ratingModal');
+  const submitPlayStoreReviewBtn = document.getElementById('submitPlayStoreReviewBtn');
+  const remindRatingLaterBtn = document.getElementById('remindRatingLaterBtn');
+  const neverAskRatingBtn = document.getElementById('neverAskRatingBtn');
+  const settingsRateAppBtn = document.getElementById('settingsRateAppBtn');
+  const starBtns = document.querySelectorAll('.star-btn');
+  const playStoreUrl = "https://play.google.com/store/apps/details?id=com.daycraft.app";
+
+  let selectedStars = 5;
+
+  starBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      selectedStars = parseInt(btn.dataset.star, 10);
+      starBtns.forEach(s => {
+        const starNum = parseInt(s.dataset.star, 10);
+        s.classList.toggle('active', starNum <= selectedStars);
+      });
+      if (window.permissionsManager) window.permissionsManager.vibrate([20]);
+    });
+  });
+
+  const openRatingPrompt = () => {
+    if (ratingModal) ratingModal.classList.remove('hidden');
+  };
+
+  const closeRatingPrompt = () => {
+    if (ratingModal) ratingModal.classList.add('hidden');
+  };
+
+  window.checkAndPromptRating = () => {
+    const ratedStatus = localStorage.getItem('daycraft_rated_status');
+    if (ratedStatus === 'rated' || ratedStatus === 'never') return;
+
+    const snoozeUntil = parseInt(localStorage.getItem('daycraft_rated_snooze') || '0', 10);
+    if (Date.now() < snoozeUntil) return;
+
+    // Show rating prompt
+    setTimeout(() => {
+      openRatingPrompt();
+    }, 2500);
+  };
+
+  if (submitPlayStoreReviewBtn) {
+    submitPlayStoreReviewBtn.addEventListener('click', () => {
+      localStorage.setItem('daycraft_rated_status', 'rated');
+      window.open(playStoreUrl, '_blank');
+      closeRatingPrompt();
+      window.confetti.fire(window.innerWidth / 2, window.innerHeight / 2, 80);
+    });
+  }
+
+  if (remindRatingLaterBtn) {
+    remindRatingLaterBtn.addEventListener('click', () => {
+      // Snooze for 3 days
+      localStorage.setItem('daycraft_rated_snooze', Date.now() + (3 * 24 * 60 * 60 * 1000));
+      closeRatingPrompt();
+    });
+  }
+
+  if (neverAskRatingBtn) {
+    neverAskRatingBtn.addEventListener('click', () => {
+      localStorage.setItem('daycraft_rated_status', 'never');
+      closeRatingPrompt();
+    });
+  }
+
+  if (settingsRateAppBtn) {
+    settingsRateAppBtn.addEventListener('click', () => {
+      closeSettings();
+      openRatingPrompt();
+    });
+  }
+
+  // --- GOOGLE PLAY IN-APP UPDATE CHECK ---
+  const updateAvailableModal = document.getElementById('updateAvailableModal');
+  const closeUpdateModalBtn = document.getElementById('closeUpdateModalBtn');
+  const openPlayStoreUpdateBtn = document.getElementById('openPlayStoreUpdateBtn');
+  const settingsCheckUpdateBtn = document.getElementById('settingsCheckUpdateBtn');
+
+  if (settingsCheckUpdateBtn) {
+    settingsCheckUpdateBtn.addEventListener('click', () => {
+      if (updateAvailableModal) updateAvailableModal.classList.remove('hidden');
+    });
+  }
+
+  if (closeUpdateModalBtn && updateAvailableModal) {
+    closeUpdateModalBtn.addEventListener('click', () => {
+      updateAvailableModal.classList.add('hidden');
+    });
+  }
+
+  if (openPlayStoreUpdateBtn) {
+    openPlayStoreUpdateBtn.addEventListener('click', () => {
+      window.open(playStoreUrl, '_blank');
+      if (updateAvailableModal) updateAvailableModal.classList.add('hidden');
+    });
+  }
 
   // Close modals on backdrop click
   document.querySelectorAll('.modal-backdrop').forEach(modal => {

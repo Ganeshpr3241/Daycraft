@@ -2814,5 +2814,121 @@ input:checked + .slider::before {
   color: var(--success) !important;
 }
 
+/* ==========================================================================
+   IN-PAGE AD UNIT (GOOGLE ADSENSE / ADMOB: pub-9957821482976268)
+   ========================================================================== */
+
+.in-page-ad-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--card-radius);
+  padding: 0.65rem 0.85rem;
+  margin-top: 1.25rem;
+  overflow: hidden;
+}
+
+.ad-badge-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.35rem;
+}
+
+.ad-badge-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  background: var(--bg-elevated);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+}
+
+.ad-content-wrapper {
+  min-height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-subtle);
+  border-radius: var(--btn-radius);
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   IN-APP PLAY STORE RATING MODAL
+   ========================================================================== */
+
+.rating-modal-dialog {
+  max-width: 400px;
+  border-radius: 18px;
+}
+
+.rating-icon-wrap {
+  font-size: 2.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.rating-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin-bottom: 0.50rem;
+}
+
+.rating-desc {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin-bottom: 1.25rem;
+}
+
+.rating-stars-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.50rem;
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+}
+
+.star-btn {
+  color: var(--border-card);
+  transition: all var(--trans-fast);
+  user-select: none;
+}
+
+.star-btn.active,
+.star-btn:hover {
+  color: #fbbf24;
+  transform: scale(1.15);
+}
+
+.rating-sub-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.50rem;
+  margin-top: 0.50rem;
+}
+
+/* ==========================================================================
+   IN-APP UPDATE AVAILABLE SHEET
+   ========================================================================== */
+
+.update-highlights {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--card-radius);
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.40rem;
+}
+
+.update-highlight-item {
+  font-size: 0.82rem;
+  color: var(--text-sub);
+  font-weight: 600;
+}
+
+
 
 
