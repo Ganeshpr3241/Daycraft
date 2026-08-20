@@ -500,6 +500,10 @@ class RetroChatApp {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    window.retroApp = new RetroChatApp();
+  });
+} else {
   window.retroApp = new RetroChatApp();
-});
+}
