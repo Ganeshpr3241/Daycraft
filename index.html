@@ -23,15 +23,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/chat.css?v=10.0">
-
-  <!-- Google AdSense / AdMob Monetization (Publisher ID: pub-9957821482976268) -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9957821482976268" crossorigin="anonymous"></script>
-
-  <!-- Firebase Authentication SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <link rel="stylesheet" href="css/chat.css?v=11.0">
 </head>
 <body class="theme-cyber-neon">
 
@@ -52,7 +44,7 @@
           <!-- My User Code Pill -->
           <div class="user-code-pill" id="myProfileModalTrigger" title="Click to view & copy your code">
             <span id="headerUserAvatar">⚡</span>
-            <span class="code-badge" id="headerUserCodeBadge">RC-0000</span>
+            <span class="code-badge" id="headerUserCodeBadge">RC-8842</span>
           </div>
         </div>
 
@@ -80,43 +72,78 @@
 
       <!-- Rooms / Conversations Feed -->
       <div class="rooms-list" id="roomsListContainer">
-        <!-- Rendered dynamically by app.js -->
+        <div class="room-list-item active" onclick="window.retroApp && window.retroApp.openRoom('room_global_arcade')">
+          <div class="room-avatar-wrap">
+            <span class="room-avatar">👾</span>
+            <span class="online-indicator"></span>
+          </div>
+          <div class="room-info">
+            <div class="room-header-row">
+              <span class="room-name">👾 Retro Arcade Lounge</span>
+              <span class="room-time">Just now</span>
+            </div>
+            <div class="room-preview-row">
+              <span class="room-last-msg">Welcome to Retro Chat! Connect using codes.</span>
+              <span class="room-code-tag">GRP-8080</span>
+            </div>
+          </div>
+        </div>
       </div>
     </aside>
 
     <!-- ================= MAIN CHAT VIEW PANEL ================= -->
-    <main class="chat-view-panel" id="chatViewPanel">
+    <main class="chat-view-panel active-chat-open" id="chatViewPanel">
       
       <!-- Active Room Header -->
       <header class="chat-room-header">
         <div class="room-identity-wrap">
           <button class="back-btn" id="chatBackToListBtn">←</button>
-          <div class="active-avatar" id="activeRoomAvatar">💬</div>
+          <div class="active-avatar" id="activeRoomAvatar">👾</div>
           <div class="active-room-meta">
-            <h2 class="active-title" id="activeRoomTitle">Select a Conversation</h2>
-            <span class="active-subtitle" id="activeRoomSubtitle">End-to-End Encrypted</span>
+            <h2 class="active-title" id="activeRoomTitle">👾 Retro Arcade Lounge</h2>
+            <span class="active-subtitle" id="activeRoomSubtitle">42 Members • Public Group Room</span>
           </div>
         </div>
 
         <div class="header-right-actions">
-          <span class="room-code-badge" id="activeRoomCodeTag">CODE</span>
+          <span class="room-code-badge" id="activeRoomCodeTag">GRP-8080</span>
           <button class="btn-sidebar-action" id="headerVipBtn" title="VIP Upgrade (₹399)">💎 VIP</button>
         </div>
       </header>
 
       <!-- Messages Stream -->
       <div class="chat-messages-stream" id="chatMessagesStream">
-        <div class="empty-messages-placeholder">
-          <span class="placeholder-emoji">⚡</span>
-          <h4>Retro Chat Network</h4>
-          <p>Select any room on the left or enter a Friend's User Code to begin.</p>
+        <div class="message-row theirs">
+          <div class="msg-avatar">🤖</div>
+          <div class="message-bubble-wrap">
+            <span class="msg-sender-name">RetroBot</span>
+            <div class="message-bubble">
+              <p class="msg-text">⚡ Welcome to Retro Chat! Share your User Code to start private chats or join group rooms.</p>
+              <div class="msg-meta-row">
+                <span class="msg-timestamp">12:00 PM</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="message-row theirs">
+          <div class="msg-avatar">🕶️</div>
+          <div class="message-bubble-wrap">
+            <span class="msg-sender-name">CyberSam</span>
+            <div class="message-bubble">
+              <p class="msg-text">Hey everyone! Anyone up for some retro arcade gaming tonight? 🔥</p>
+              <div class="msg-meta-row">
+                <span class="msg-timestamp">12:05 PM</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Message Input Bar -->
       <footer class="chat-input-bar">
         <button class="input-action-btn" id="chatAttachMediaBtn" title="Attach Media">📎</button>
-        <textarea id="chatMessageInput" class="chat-textarea" placeholder="Type an encrypted message..." rows="1"></textarea>
+        <textarea id="chatMessageInput" class="chat-textarea" placeholder="Type a message or paste code..." rows="1"></textarea>
         <button class="btn-send-message" id="chatSendBtn" title="Send Message">➤</button>
       </footer>
     </main>
@@ -188,9 +215,9 @@
 
       <div class="profile-code-box">
         <div class="profile-code-val" id="profileCodeDisplay">RC-0000</div>
-        <div class="d-flex gap-2">
-          <button id="copyMyUserCodeBtn" class="btn btn-xs btn-primary">📋 Copy Code</button>
-          <button id="shareMyCodeBtn" class="btn btn-xs btn-secondary">🚀 Share Invite Link</button>
+        <div style="display: flex; gap: 0.5rem; justify-content: center;">
+          <button id="copyMyUserCodeBtn" class="btn btn-primary">📋 Copy Code</button>
+          <button id="shareMyCodeBtn" class="btn btn-secondary">🚀 Share Invite</button>
         </div>
       </div>
 
@@ -217,24 +244,24 @@
   <!-- ================= MODAL: RETRO CHAT VIP PASS (₹399 LIFETIME) ================= -->
   <div id="retroVipModal" class="modal-backdrop hidden">
     <div class="modal-dialog">
-      <div class="text-center mb-3">
+      <div style="text-align: center; margin-bottom: 1rem;">
         <span style="font-size: 2.5rem;">💎</span>
-        <h3 class="modal-title mt-1">Retro Chat VIP Pass</h3>
+        <h3 class="modal-title" style="margin-top: 0.25rem;">Retro Chat VIP Pass</h3>
         <p class="modal-sub">₹399 / One-Time Lifetime • Google Play Account License</p>
       </div>
 
-      <div class="vip-benefits-list mb-3">
+      <div style="margin-bottom: 1rem; font-size: 0.85rem; line-height: 1.6;">
         <p>✓ 100% Ad-Free Forever</p>
         <p>✓ Unlock All 4 Animated Neon Themes</p>
         <p>✓ Unlimited Pinned Group Rooms</p>
         <p>✓ Custom Glowing Message Bubbles</p>
       </div>
 
-      <button id="buyRetroVipBtn" class="btn btn-primary btn-lg btn-full mb-2">
+      <button id="buyRetroVipBtn" class="btn btn-primary btn-full mb-2">
         🚀 Pay via Google Play Store (₹399)
       </button>
-      <button id="restoreRetroVipBtn" class="btn btn-secondary btn-sm btn-full text-muted">
-        🔄 Restore Purchase
+      <button class="btn btn-secondary btn-full modal-cancel-btn">
+        Close
       </button>
 
       <button class="modal-close">&times;</button>
@@ -246,9 +273,9 @@
     <div class="modal-dialog">
       <h3 class="modal-title">Settings & Themes</h3>
       
-      <div class="form-group mt-3">
+      <div class="form-group" style="margin-top: 0.75rem;">
         <label>RETRO CHAT THEME</label>
-        <div class="theme-options-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
           <button class="btn btn-secondary theme-option-btn active" data-theme="cyber-neon">⚡ Cyber Neon</button>
           <button class="btn btn-secondary theme-option-btn" data-theme="matrix-green">🟢 Matrix Green</button>
           <button class="btn btn-secondary theme-option-btn" data-theme="vaporwave">🟣 Vaporwave</button>
@@ -256,7 +283,7 @@
         </div>
       </div>
 
-      <hr class="modal-divider" style="margin: 1rem 0; border: 0; border-top: 1px solid var(--border-color);">
+      <hr style="margin: 1rem 0; border: 0; border-top: 1px solid var(--border-color);">
 
       <button id="clearChatDataBtn" class="btn btn-secondary btn-full" style="color: #f87171;">
         ⚠️ Clear Chat History
@@ -270,11 +297,10 @@
   <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
 
   <!-- Scripts -->
-  <script src="js/chat/store.js?v=10.0"></script>
-  <script src="js/chat/audio.js?v=10.0"></script>
-  <script src="js/utils/confetti.js?v=10.0"></script>
-  <script src="js/modules/firebaseAuth.js?v=10.0"></script>
-  <script src="js/chat/app.js?v=10.0"></script>
+  <script src="js/chat/store.js?v=11.0"></script>
+  <script src="js/chat/audio.js?v=11.0"></script>
+  <script src="js/utils/confetti.js?v=11.0"></script>
+  <script src="js/chat/app.js?v=11.0"></script>
 
   <script>
     // VIP & Settings Modal Triggers
@@ -294,8 +320,10 @@
     const buyVipBtn = document.getElementById('buyRetroVipBtn');
     if (buyVipBtn) {
       buyVipBtn.addEventListener('click', () => {
-        window.retroChatStore.state.settings.isVip = true;
-        window.retroChatStore.save();
+        if (window.retroChatStore) {
+          window.retroChatStore.state.settings.isVip = true;
+          window.retroChatStore.save();
+        }
         if (vipModal) vipModal.classList.add('hidden');
         if (window.retroAudio) window.retroAudio.playGroupJoin();
         if (window.confetti) window.confetti.fire(window.innerWidth / 2, window.innerHeight / 2, 80);
@@ -312,16 +340,6 @@
           location.reload();
         }
       });
-    }
-
-    // Clear Old ServiceWorker Caches & Register New
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistrations().then(registrations => {
-        for (let registration of registrations) {
-          registration.update();
-        }
-      });
-      navigator.serviceWorker.register('./sw.js?v=10.1').catch(() => {});
     }
   </script>
 </body>
