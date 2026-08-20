@@ -1,15 +1,10 @@
 {
-  "appId": "com.daycraft.app",
-  "appName": "DayCraft",
-  "webDir": ".",
+  "appId": "com.ganeshpr.focusflow",
+  "appName": "FocusFlow: Daily Routine & Focus",
+  "webDir": "www",
   "bundledWebRuntime": false,
   "server": {
     "androidScheme": "https"
-  },
-  "android": {
-    "allowMixedContent": true,
-    "captureInput": true,
-    "webContentsDebuggingEnabled": false
   },
   "plugins": {
     "SplashScreen": {
@@ -17,11 +12,11 @@
       "launchAutoHide": true,
       "backgroundColor": "#09090b",
       "androidSplashResourceName": "splash",
-      "androidScaleType": "CENTER_CROP"
+      "androidScaleType": "CENTER_CROP",
+      "showSpinner": false
     },
-    "StatusBar": {
-      "style": "DARK",
-      "backgroundColor": "#09090b"
+    "AdMob": {
+      "appId": "ca-app-pub-9957821482976268~1234567890"
     }
   }
 }

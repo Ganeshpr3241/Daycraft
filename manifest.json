@@ -1,39 +1,24 @@
 {
-  "name": "DayCraft — Everyday Life OS",
-  "short_name": "DayCraft",
-  "description": "A minimalist, high-productivity daily companion for focus, tasks, wellness, ambient audio, and reflection.",
+  "name": "FocusFlow: Daily Routine & Focus OS",
+  "short_name": "FocusFlow",
+  "description": "Minimalist Daily Routine Planner, Pomodoro Focus Studio & Habit Tracker",
   "start_url": "./index.html",
   "display": "standalone",
-  "orientation": "portrait-primary",
   "background_color": "#09090b",
   "theme_color": "#09090b",
-  "categories": ["productivity", "lifestyle", "utilities"],
+  "orientation": "portrait",
   "icons": [
+    {
+      "src": "./assets/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
     {
       "src": "./assets/logo.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
-    },
-    {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='128' fill='%2309090b'/><circle cx='256' cy='256' r='100' fill='none' stroke='%23ffffff' stroke-width='36'/><path d='M256 60v40M256 412v40M117 117l28 28M367 367l28 28M60 256h40M412 256h40M117 395l28-28M367 145l28-28' stroke='%23ffffff' stroke-width='36' stroke-linecap='round'/></svg>",
-      "sizes": "192x192 512x512",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Start Focus Timer",
-      "short_name": "Focus",
-      "description": "Jump directly into a 25m Pomodoro session",
-      "url": "./index.html#secFocus"
-    },
-    {
-      "name": "Add Daily Task",
-      "short_name": "New Task",
-      "description": "Quickly add a task for today",
-      "url": "./index.html#secTasks"
     }
   ]
 }

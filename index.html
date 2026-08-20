@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>DayCraft — Everyday Life OS</title>
-  <meta name="description" content="A minimalist, professional daily companion for focus, tasks, wellness, ambient soundscapes, and reflection.">
+  <title>FocusFlow — Daily Routine &amp; Focus OS</title>
+  <meta name="description" content="FocusFlow: Minimalist daily routine planner, Pomodoro focus studio, habit tracker, and ambient soundscapes.">
   
   <!-- Mobile & Android Status Bar Theming -->
   <meta name="theme-color" content="#09090b">
@@ -53,8 +53,8 @@
           </svg>
         </div>
         <div class="brand-text">
-          <span class="brand-name">DayCraft</span>
-          <span class="brand-tag">Everyday OS</span>
+          <span class="brand-name">FocusFlow</span>
+          <span class="brand-tag">Routine &amp; Focus</span>
         </div>
       </div>
 
@@ -424,7 +424,7 @@
                 <div class="house-left">
                   <span class="house-emoji">💎</span>
                   <div class="house-info">
-                    <strong>Unlock DayCraft Lifetime Pro (₹399)</strong>
+                    <strong>Unlock FocusFlow Lifetime Pro (₹399)</strong>
                     <p>Remove all ads forever & unlock unlimited 432Hz focus audio.</p>
                   </div>
                 </div>
@@ -523,7 +523,7 @@
                 <div class="house-left">
                   <span class="house-emoji">💎</span>
                   <div class="house-info">
-                    <strong>Boost Daily Output with DayCraft Pro</strong>
+                    <strong>Boost Daily Output with FocusFlow Pro</strong>
                     <p>Unlimited custom Pomodoros & ad-free deep flow — ₹399 Lifetime.</p>
                   </div>
                 </div>
@@ -654,8 +654,6 @@
                   <span>Per Person:</span>
                   <strong id="resPerPerson">$0.00</strong>
               </div>
-            </div>
-
             <!-- In-Page Sponsored Ad Unit (Google AdSense/AdMob: pub-9957821482976268) -->
             <div class="in-page-ad-card" id="inPageAdContainer">
               <div class="ad-badge-header">
@@ -666,7 +664,7 @@
                   <div class="house-left">
                     <span class="house-emoji">💎</span>
                     <div class="house-info">
-                      <strong>DayCraft Lifetime Pro — ₹399</strong>
+                      <strong>FocusFlow Lifetime Pro — ₹399</strong>
                       <p>Enjoy all productivity tools with zero ads and 100% offline privacy.</p>
                     </div>
                   </div>
@@ -714,78 +712,62 @@
             <div class="card-header">
               <div class="card-title">
                 <div class="card-icon-badge">
-                  <!-- Solid Mood Heart / Smile -->
+                  <!-- Solid Mood / Smile -->
                   <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+                    <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm3.5-9a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5zm-7 0A1.5 1.5 0 1 1 7 9.5 1.5 1.5 0 0 1 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"></path>
                   </svg>
                 </div>
-                <span>Mood & Energy Level</span>
+                <span>Daily Mood & Energy</span>
               </div>
-              <span class="mood-saved-badge" id="moodStatusBadge">Log Today</span>
             </div>
 
-            <!-- Quick Mood Presets & Custom Emoji Selector -->
-            <div class="mood-selector-grid" id="moodSelectorGrid">
-              <button class="mood-btn active" data-mood="radiant" data-emoji="⚡" title="Radiant">⚡</button>
-              <button class="mood-btn" data-mood="happy" data-emoji="😊" title="Happy">😊</button>
-              <button class="mood-btn" data-mood="calm" data-emoji="😌" title="Calm">😌</button>
-              <button class="mood-btn" data-mood="focused" data-emoji="🎯" title="Focused">🎯</button>
-              <button class="mood-btn" data-mood="neutral" data-emoji="😐" title="Neutral">😐</button>
-              <button class="mood-btn" data-mood="tired" data-emoji="🥱" title="Tired">🥱</button>
-              <button class="mood-btn" data-mood="stressed" data-emoji="😫" title="Stressed">😫</button>
-              <button class="mood-btn custom-emoji-toggle-btn" id="customMoodToggleBtn" title="Set Custom Emoji / Mood">🎨 +</button>
+            <div class="mood-selector" id="moodSelector">
+              <button class="mood-btn" data-mood="great" title="Great">⚡ Great</button>
+              <button class="mood-btn" data-mood="good" title="Good">✨ Good</button>
+              <button class="mood-btn" data-mood="okay" title="Neutral">🌱 Okay</button>
+              <button class="mood-btn" data-mood="tired" title="Low Energy">☕ Tired</button>
+              <button class="mood-btn" data-mood="stressed" title="Stressed">🌧️ Stress</button>
             </div>
 
-            <!-- Custom Mood & Emoji Form (Collapsible) -->
-            <div class="custom-mood-row hidden" id="customMoodRow">
-              <input type="text" id="customEmojiInput" class="custom-emoji-input" placeholder="🔥" maxlength="4" title="Type any emoji">
-              <input type="text" id="customMoodNote" class="custom-mood-input" placeholder="How are you feeling? (e.g. Fired up!)" maxlength="60">
-              <button id="saveCustomMoodBtn" class="btn btn-xs btn-primary">Set</button>
+            <div class="custom-mood-row">
+              <input type="text" id="customMoodEmoji" placeholder="Emoji" maxlength="2" class="custom-mood-emoji-input">
+              <input type="text" id="customMoodLabel" placeholder="Custom feeling (e.g. Victorious, Reflective...)" maxlength="25" class="custom-mood-text-input">
+              <button id="saveCustomMoodBtn" class="btn btn-xs btn-primary">Log Feeling</button>
             </div>
-
-            <div class="energy-slider-group">
-              <div class="energy-label-row">
-                <div class="energy-title-wrap">
-                  <span id="currentMoodEmojiBadge" class="mood-preview-emoji">⚡</span>
-                  <span>Energy Battery</span>
-                </div>
-                <strong id="energyValueText">75%</strong>
-              </div>
-              <input type="range" id="energySlider" min="10" max="100" value="75" class="energy-range">
-            </div>
+            <div id="moodStatusText" class="mood-status-text">Log your baseline energy for today</div>
           </div>
 
-          <!-- Card 3: Evening Reflection & Wrap-up -->
+          <!-- Card 3: Evening Reflection & Gratitude (With Multi-Word Wrap & Win Sharing) -->
           <div class="card glass-card reflection-card">
             <div class="card-header">
               <div class="card-title">
                 <div class="card-icon-badge">
-                  <!-- Solid Moon / Reflection -->
+                  <!-- Solid Moon / Star -->
                   <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                    <path d="M12.3 2a10 10 0 0 0-.19 20 10 10 0 0 0 8.35-4.5 1 1 0 0 0-.85-1.5h-.5A7.5 7.5 0 0 1 11.6 8.5c0-2.32 1.05-4.4 2.7-5.8a1 1 0 0 0-.7-1.7h-.3z"></path>
+                    <path d="M12.3 2a10 10 0 0 0-1.9 20 10 10 0 0 0 9.6-13.4A9.96 9.96 0 0 1 12.3 2z"></path>
                   </svg>
                 </div>
-                <span>Evening Reflection</span>
+                <span>Evening Reflection & Daily Wins</span>
               </div>
-              <span class="reflection-date" id="reflectionDateBadge">Wrap-up</span>
             </div>
 
-            <div class="reflection-body">
-              <div class="rating-stars-row">
-                <span class="rating-label">Rate Today:</span>
-                <div class="stars-container" id="dayRatingStars">
-                  <span class="star" data-rating="1">★</span>
-                  <span class="star" data-rating="2">★</span>
-                  <span class="star" data-rating="3">★</span>
-                  <span class="star" data-rating="4">★</span>
-                  <span class="star" data-rating="5">★</span>
+            <div class="reflection-prompts">
+              <div class="prompt-group">
+                <div class="prompt-label-row">
+                  <label>🏆 What was your biggest win today?</label>
+                  <button id="shareWinBtn" class="btn-text-link">Share Win ✨</button>
                 </div>
+                <input type="text" id="reflectWin" placeholder="Finished major project milestone, hit gym..." maxlength="150">
               </div>
 
-              <div class="reflection-inputs">
-                <input type="text" id="reflWinInput" placeholder="🌟 What went really well today?" maxlength="140">
-                <input type="text" id="reflGratefulInput" placeholder="🙏 One thing you're grateful for..." maxlength="140">
-                <input type="text" id="reflImproveInput" placeholder="🎯 Focus area for tomorrow..." maxlength="140">
+              <div class="prompt-group">
+                <label>🙏 What are you grateful for?</label>
+                <input type="text" id="reflectGrateful" placeholder="Good coffee, supportive teammate..." maxlength="150">
+              </div>
+
+              <div class="prompt-group">
+                <label>📈 What can you improve tomorrow?</label>
+                <input type="text" id="reflectImprove" placeholder="Start morning session 15 mins earlier..." maxlength="150">
               </div>
 
               <button id="saveReflectionBtn" class="btn btn-primary btn-full">
@@ -824,7 +806,7 @@
                 <div class="house-left">
                   <span class="house-emoji">💎</span>
                   <div class="house-info">
-                    <strong>Build Long-Term Focus with DayCraft Pro</strong>
+                    <strong>Build Long-Term Focus with FocusFlow Pro</strong>
                     <p>Lifetime access with 0 subscriptions & 0 sponsored ads — ₹399.</p>
                   </div>
                 </div>
@@ -847,7 +829,7 @@
     <!-- Footer -->
     <footer class="app-footer">
       <div class="footer-content">
-        <span>DayCraft • 100% Private & Auto-Saved Offline</span>
+        <span>FocusFlow • 100% Private & Auto-Saved Offline</span>
       </div>
     </footer>
 
@@ -862,7 +844,7 @@
     <div class="docked-ad-body">
       <div class="docked-house-fallback" onclick="document.getElementById('headerProBtn').click()">
         <span class="house-emoji">💎</span>
-        <span class="docked-house-title"><strong>DayCraft Pro:</strong> Ad-Free & Unlimited Focus Audio — ₹399</span>
+        <span class="docked-house-title"><strong>FocusFlow Pro:</strong> Ad-Free & Unlimited Focus Audio — ₹399</span>
         <button class="btn btn-xs btn-primary">Upgrade</button>
       </div>
       <ins class="adsbygoogle"
@@ -1455,11 +1437,12 @@
   </div>
 
   <!-- ================= DAYCRAFT LIFETIME PRO MODAL (₹399 ONE-TIME) ================= -->
+  <!-- ================= FOCUSFLOW LIFETIME PRO MODAL (₹399 ONE-TIME) ================= -->
   <div id="proUpgradeModal" class="modal-backdrop hidden">
     <div class="modal-dialog pro-modal-dialog">
       <div class="pro-modal-hero">
         <div class="pro-icon-aura">💎</div>
-        <h2 class="pro-modal-title">DayCraft Lifetime Pro</h2>
+        <h2 class="pro-modal-title">FocusFlow Lifetime Pro</h2>
         <div class="pro-price-tag">
           <span class="currency">₹</span>
           <span class="amount">399</span>
@@ -1519,9 +1502,9 @@
         <div class="rating-icon-wrap">
           <span class="rating-emoji">⭐</span>
         </div>
-        <h3 class="rating-title">Enjoying DayCraft?</h3>
+        <h3 class="rating-title">Enjoying FocusFlow?</h3>
         <p class="rating-desc">
-          Your review helps us keep DayCraft 100% private, offline, and free from intrusive popups.
+          Your review helps us keep FocusFlow 100% private, offline, and free from intrusive popups.
         </p>
 
         <div class="rating-stars-row" id="ratingStarsRow">
@@ -1563,7 +1546,7 @@
         <button id="closeUpdateModalBtn" class="modal-close">&times;</button>
       </div>
       <div class="modal-body">
-        <p class="mb-3">A new version of DayCraft is available on Google Play with improved sound synthesis, battery optimizations, and new focus features.</p>
+        <p class="mb-3">A new version of FocusFlow is available on Google Play with improved sound synthesis, battery optimizations, and new focus features.</p>
         <div class="update-highlights">
           <div class="update-highlight-item">⚡ Faster offline state restoration</div>
           <div class="update-highlight-item">🎧 Enhanced 432Hz binaural audio clarity</div>

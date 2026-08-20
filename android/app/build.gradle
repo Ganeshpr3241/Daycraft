@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "com.daycraft.app"
+    namespace "com.ganeshpr.focusflow"
     compileSdkVersion 34
 
     defaultConfig {
-        applicationId "com.daycraft.app"
+        applicationId "com.ganeshpr.focusflow"
         minSdkVersion 24
         targetSdkVersion 34
         versionCode 1
@@ -13,7 +13,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         
         manifestPlaceholders = [
-            'appAuthRedirectScheme': 'com.daycraft.app'
+            'appAuthRedirectScheme': 'com.ganeshpr.focusflow'
         ]
     }
 

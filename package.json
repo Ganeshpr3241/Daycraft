@@ -1,34 +1,33 @@
 {
-  "name": "daycraft-app",
+  "name": "focusflow-daily-routine-app",
   "version": "1.0.0",
-  "description": "DayCraft — Everyday Life OS for Focus, Habits, Wellness, and Daily Productivity",
+  "description": "FocusFlow: Minimalist Daily Routine Planner, Pomodoro Focus Studio & Habit Tracker",
   "main": "index.html",
   "scripts": {
-    "build": "echo 'Building DayCraft for production...'",
+    "start": "npx serve .",
     "cap:sync": "npx cap sync android",
     "cap:open": "npx cap open android",
-    "cap:build": "npx cap build android"
+    "build:android": "npx cap copy android && cd android && ./gradlew assembleRelease"
   },
   "keywords": [
-    "productivity",
-    "pomodoro",
-    "habits",
-    "wellness",
-    "ambient-sound",
-    "daycraft",
-    "focus-timer"
+    "daily-routine",
+    "pomodoro-timer",
+    "focus-planner",
+    "habit-tracker",
+    "ambient-sounds",
+    "offline-app",
+    "productivity-os"
   ],
-  "author": "DayCraft Team",
+  "author": "Ganeshpr",
   "license": "MIT",
   "dependencies": {
-    "@capacitor/android": "^6.1.0",
-    "@capacitor/app": "^6.0.0",
-    "@capacitor/core": "^6.1.0",
-    "@capacitor/haptics": "^6.0.0",
-    "@capacitor/local-notifications": "^6.0.0",
-    "@capacitor/status-bar": "^6.0.0"
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/app": "^6.0.1",
+    "@capacitor/core": "^6.1.2",
+    "@capacitor/haptics": "^6.0.1",
+    "@capacitor/status-bar": "^6.0.1"
   },
   "devDependencies": {
-    "@capacitor/cli": "^6.1.0"
+    "@capacitor/cli": "^6.1.2"
   }
 }
