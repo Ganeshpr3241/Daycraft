@@ -6,7 +6,7 @@
   <title>Nexus — Android App</title>
   
   <!-- Mobile Status Bar Color (Android) -->
-  <meta name="theme-color" content="#0f172a">
+  <meta name="theme-color" content="#090d16">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -16,51 +16,50 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Mobile App Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=1.0">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css?v=2.0">
 </head>
 <body>
 
-  <!-- Android Native Mobile Shell -->
+  <!-- Android Mobile Shell Container -->
   <div class="mobile-app-shell">
 
     <!-- ================= TOP SVG HEADER ARTWORK ================= -->
     <header class="top-svg-banner">
-      <!-- Modern Multi-Layer Gradient Wave SVG Artwork -->
-      <svg class="top-svg-graphic" viewBox="0 0 500 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Clean, Professional Multi-Wave Gradient SVG Header -->
+      <svg class="top-svg-graphic" viewBox="0 0 500 240" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <linearGradient id="headerGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#4f46e5" stop-opacity="0.9" />
-            <stop offset="50%" stop-color="#9333ea" stop-opacity="0.85" />
-            <stop offset="100%" stop-color="#ec4899" stop-opacity="0.8" />
+          <linearGradient id="proGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#1e3a8a" stop-opacity="0.9" />
+            <stop offset="50%" stop-color="#2563eb" stop-opacity="0.75" />
+            <stop offset="100%" stop-color="#0284c7" stop-opacity="0.6" />
           </linearGradient>
-          <linearGradient id="headerGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.6" />
-            <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.4" />
+          <linearGradient id="proGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#0f172a" stop-opacity="0.9" />
+            <stop offset="100%" stop-color="#1e40af" stop-opacity="0.4" />
           </linearGradient>
-          <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="15" result="blur" />
+          <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="20" result="blur" />
             <feComposite in="SourceGraphic" in2="blur" operator="over" />
           </filter>
         </defs>
 
-        <!-- Ambient Glow Orbs -->
-        <circle cx="80" cy="60" r="100" fill="#6366f1" opacity="0.35" filter="url(#glow)" />
-        <circle cx="420" cy="40" r="110" fill="#ec4899" opacity="0.3" filter="url(#glow)" />
+        <!-- Ambient Blue Light Glow -->
+        <circle cx="250" cy="50" r="140" fill="#3b82f6" opacity="0.22" filter="url(#softGlow)" />
 
-        <!-- Deep Wave Back Layer -->
-        <path d="M0,0 L500,0 L500,210 Q375,270 250,220 Q125,170 0,240 Z" fill="url(#headerGrad2)"></path>
+        <!-- Deep Base Curve -->
+        <path d="M0,0 L500,0 L500,190 C380,240 260,150 0,210 Z" fill="url(#proGrad2)"></path>
 
-        <!-- Dynamic Foreground Wave Layer -->
-        <path d="M0,0 L500,0 L500,180 Q360,250 230,190 Q100,130 0,200 Z" fill="url(#headerGrad1)"></path>
+        <!-- Dynamic Foreground Curve -->
+        <path d="M0,0 L500,0 L500,155 C350,210 220,130 0,180 Z" fill="url(#proGrad1)"></path>
       </svg>
 
-      <!-- Branding Overlay -->
+      <!-- App Branding Overlay -->
       <div class="top-art-overlay">
         <div class="app-brand-logo">
-          <!-- Lightning / Nexus Glyph SVG -->
+          <!-- Minimalist Diamond / Shield Glyph -->
           <svg viewBox="0 0 24 24">
-            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
           </svg>
         </div>
         <h1 class="brand-app-name">Nexus</h1>
@@ -70,10 +69,10 @@
     <!-- ================= SCREEN 1: GOOGLE SIGN-IN ================= -->
     <main class="auth-body-container" id="authLoginSection">
       
-      <!-- Glassmorphic Auth Card -->
+      <!-- Glassmorphic Card -->
       <div class="auth-glass-card">
-        <h2 class="auth-headline">Welcome to Nexus</h2>
-        <p class="auth-subtitle">Sign in with your Google account to access your personal dashboard & settings.</p>
+        <h2 class="auth-headline">Welcome Back</h2>
+        <p class="auth-subtitle">Sign in with your Google account to access your personal dashboard & secure workspace.</p>
 
         <!-- Official Google Sign-In Button -->
         <button id="googleSignInBtn" class="google-signin-btn">
@@ -87,12 +86,12 @@
           <span class="google-btn-label">Continue with Google</span>
         </button>
 
-        <!-- Security Badge -->
+        <!-- Security Guarantee Badge -->
         <div class="security-badge">
           <svg viewBox="0 0 24 24">
             <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" />
           </svg>
-          <span>Encrypted via Google OAuth 2.0</span>
+          <span>Secured with Google OAuth 2.0</span>
         </div>
       </div>
 
@@ -119,6 +118,6 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/auth.js?v=1.0"></script>
+  <script src="js/auth.js?v=2.0"></script>
 </body>
 </html>
