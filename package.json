@@ -1,32 +1,12 @@
 {
-  "name": "retro-chat-app",
+  "name": "nexus-android-app",
   "version": "1.0.0",
-  "description": "Retro Chat — Private Code-Based & Group Realtime Messaging",
+  "description": "Android Native App with Google Authentication",
   "main": "index.html",
   "scripts": {
-    "start": "npx serve .",
-    "cap:sync": "npx cap sync android",
-    "cap:open": "npx cap open android",
-    "build:android": "npx cap copy android && cd android && ./gradlew assembleRelease"
+    "start": "npx serve ."
   },
-  "keywords": [
-    "chat-app",
-    "code-based-chat",
-    "group-chat",
-    "realtime-messaging",
-    "privacy-chat",
-    "android-chat"
-  ],
+  "keywords": ["android", "mobile-app", "google-auth", "firebase"],
   "author": "Ganeshpr",
-  "license": "MIT",
-  "dependencies": {
-    "@capacitor/android": "^6.1.2",
-    "@capacitor/app": "^6.0.1",
-    "@capacitor/core": "^6.1.2",
-    "@capacitor/haptics": "^6.0.1",
-    "@capacitor/status-bar": "^6.0.1"
-  },
-  "devDependencies": {
-    "@capacitor/cli": "^6.1.2"
-  }
+  "license": "MIT"
 }
