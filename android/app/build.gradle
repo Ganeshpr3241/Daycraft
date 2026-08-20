@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "com.ganeshpr.focusflow"
+    namespace "com.ganeshpr.retrochat"
     compileSdkVersion 34
 
     defaultConfig {
-        applicationId "com.ganeshpr.focusflow"
+        applicationId "com.ganeshpr.retrochat"
         minSdkVersion 24
         targetSdkVersion 34
         versionCode 1
@@ -13,7 +13,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         
         manifestPlaceholders = [
-            'appAuthRedirectScheme': 'com.ganeshpr.focusflow'
+            'appAuthRedirectScheme': 'com.ganeshpr.retrochat'
         ]
     }
 

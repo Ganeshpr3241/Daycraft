@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>FocusFlow — Daily Routine &amp; Focus OS</title>
-  <meta name="description" content="FocusFlow: Minimalist daily routine planner, Pomodoro focus studio, habit tracker, and ambient soundscapes.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Retro Chat — Secure Code & Group Messaging</title>
+  <meta name="description" content="Fast, private, code-based direct and group chat. Connect instantly with unique user codes.">
   
-  <!-- Mobile & Android Status Bar Theming -->
+  <!-- Mobile & Android Theming -->
   <meta name="theme-color" content="#09090b">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -15,1578 +15,302 @@
   <!-- App Icons & Logo -->
   <link rel="icon" type="image/png" href="./assets/logo.png">
   <link rel="apple-touch-icon" href="./assets/logo.png">
-  
-  <!-- Web App Manifest for Android Installation -->
   <link rel="manifest" href="manifest.json">
-  
-  <!-- Minimal & Premium Typography from Google Fonts (Inter + JetBrains Mono) -->
+
+  <!-- Google Fonts: Orbitron + Inter + JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- CSS Stylesheets with Cache Busters -->
-  <link rel="stylesheet" href="css/main.css?v=8.0">
-  <link rel="stylesheet" href="css/components.css?v=8.0">
-  <link rel="stylesheet" href="css/responsive.css?v=8.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/chat.css?v=10.0">
 
   <!-- Google AdSense / AdMob Monetization (Publisher ID: pub-9957821482976268) -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9957821482976268" crossorigin="anonymous"></script>
 
-  <!-- Firebase Authentication & Realtime Google Sync SDK -->
+  <!-- Firebase Authentication SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
-<body class="theme-dark">
+<body class="theme-cyber-neon">
 
-  <!-- Main Application Wrapper -->
-  <div id="app" class="app-container">
-    
-    <!-- Top Navigation Header -->
-    <header class="app-header">
-      <div class="header-brand">
-        <div class="brand-icon">
-          <!-- Premium Solid Sun / Focus Glyph -->
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-            <circle cx="12" cy="12" r="5" fill="currentColor"></circle>
-            <path d="M12 1v3M12 20v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M1 12h3M20 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></path>
-          </svg>
-        </div>
-        <div class="brand-text">
-          <span class="brand-name">FocusFlow</span>
-          <span class="brand-tag">Routine &amp; Focus</span>
-        </div>
-      </div>
+  <!-- App Main Layout Container -->
+  <div class="chat-app-layout">
 
-      <!-- Live Clock & Date -->
-      <div class="header-datetime">
-        <span class="live-time" id="liveClock">--:-- --</span>
-        <span class="live-date" id="liveDate">Loading date...</span>
-      </div>
-
-      <!-- Quick Actions & Theme Switcher -->
-      <div class="header-actions">
-        <!-- 1-Click Lifetime Pro Button -->
-        <button id="headerProBtn" class="pro-badge-btn" title="Unlock DayCraft Lifetime Pro (₹399)">
-          <span class="pro-crown">💎</span>
-          <span class="pro-label">PRO</span>
-        </button>
-
-        <!-- 1-Click Dark / Light Mode Switcher -->
-        <button id="themeToggleBtn" class="theme-switch-btn" title="Toggle Light / Dark Mode">
-          <span id="themeIcon">☀️</span>
-          <span id="themeLabel">Light</span>
-        </button>
-
-        <button id="headerSetGoalsBtn" class="btn btn-icon" title="Set Today's Daily Goals">
-          <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path>
-          </svg>
-          <span class="btn-text">Goals</span>
-        </button>
-
-        <button id="zenModeBtn" class="btn btn-icon" title="Fullscreen Zen Focus Mode">
-          <!-- Premium Solid Zen / Maximize Glyph -->
-          <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor">
-            <path d="M3 3h6v2H5v4H3V3zm18 0h-6v2h4v4h2V3zM3 21h6v-2H5v-4H3v6zm18 0h-6v-2h4v-4h2v6z"></path>
-          </svg>
-          <span class="btn-text">Zen</span>
-        </button>
-
-        <button id="settingsModalBtn" class="btn btn-icon" title="Settings & Preferences">
-          <!-- Premium Solid Settings Gear Glyph -->
-          <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor">
-            <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.48.48 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.49.49 0 0 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6a3.6 3.6 0 1 1 0-7.2 3.6 3.6 0 0 1 0 7.2z"></path>
-          </svg>
-        </button>
-      </div>
-    </header>
-
-    <!-- Contextual User Permission Banner -->
-    <div id="permissionBanner" class="permission-banner hidden">
-      <div class="permission-content">
-        <span class="permission-icon">🔔</span>
-        <div class="permission-text">
-          <strong id="permBannerTitle">Enable Notifications?</strong>
-          <span id="permBannerDesc">Receive popup alerts for completed focus timers, breaks, and wellness reminders.</span>
-        </div>
-      </div>
-      <div class="permission-actions">
-        <button id="permBannerAllow" class="btn btn-sm btn-primary">Enable Alerts</button>
-        <button id="permBannerDismiss" class="btn btn-sm btn-ghost">Later</button>
-      </div>
-    </div>
-
-    <!-- Main Container With Strictly Vertically Stacked Views -->
-    <main class="dashboard-views-container">
+    <!-- ================= SIDEBAR: CONVERSATIONS LIST & CODE DISCOVERY ================= -->
+    <aside class="chat-sidebar">
       
-      <!-- ================= TAB VIEW 1: FOCUS STUDIO (VERTICALLY STACKED) ================= -->
-      <section class="tab-view active" id="viewFocus">
-        <div class="vertical-feed-layout">
-          
-          <!-- Card 1: Today's Greeting & #1 Focus Priority Spotlight -->
-          <div class="card glass-card spotlight-card">
-            <div class="greeting-header">
-              <span class="greeting-icon" id="greetingIcon">☀️</span>
-              <div>
-                <h2 class="greeting-title" id="greetingText">Good Morning</h2>
-                <p class="greeting-subtitle" id="dayQuote" title="Click to refresh quote">Make today count with clear intention.</p>
-              </div>
-            </div>
-
-            <div class="priority-spotlight">
-              <div class="priority-label">
-                <div class="priority-badge-wrap">
-                  <span class="badge badge-primary">
-                    <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm0-14a6 6 0 1 0 6 6 6 6 0 0 0-6-6zm0 10a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"></path></svg>
-                    <span>MAIN FOCUS TODAY</span>
-                  </span>
-                </div>
-                <button id="editPriorityBtn" class="btn-text-link">
-                  <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path></svg>
-                  <span>Edit</span>
-                </button>
-              </div>
-              <div class="priority-content" id="priorityDisplay">
-                <span class="priority-text" id="priorityText">Set your single most important goal for today...</span>
-              </div>
-              <div class="priority-input-container hidden" id="priorityInputContainer">
-                <input type="text" id="priorityInput" placeholder="What's the one thing you must finish today?" maxlength="120">
-                <button id="savePriorityBtn" class="btn btn-sm btn-primary">Save</button>
-              </div>
-            </div>
+      <!-- Top Brand Header -->
+      <div class="sidebar-header">
+        <div class="sidebar-brand-row">
+          <div class="brand-wrap">
+            <span class="brand-icon">⚡</span>
+            <h1 class="brand-title">RETRO CHAT</h1>
           </div>
 
-          <!-- Card 2: Focus Studio & Pomodoro Timer -->
-          <div class="card glass-card focus-card">
-            <div class="card-header">
-              <div class="card-title">
-                <div class="card-icon-badge">
-                  <!-- Solid Focus Stopwatch -->
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                    <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 10.59V7a1 1 0 0 0-2 0v5a1 1 0 0 0 .29.71l3 3a1 1 0 0 0 1.42-1.42z"></path>
-                  </svg>
-                </div>
-                <span>Focus Studio</span>
-              </div>
-              <div class="session-counter-badge" id="completedSessionsBadgeContainer" title="Completed Focus Sessions Today">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path>
-                </svg>
-                <span id="completedSessionsBadge">0 Done</span>
-              </div>
-            </div>
-
-            <!-- Responsive Timer Mode Presets with Solid SVG Glyphs -->
-            <div class="timer-mode-selector" id="timerModeSelector">
-              <button class="timer-tab active" data-mode="pomodoro" data-time="1500">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 10.59V7a1 1 0 0 0-2 0v5a1 1 0 0 0 .29.71l3 3a1 1 0 0 0 1.42-1.42z"></path></svg>
-                <span>Pomodoro 25m</span>
-              </button>
-
-              <button class="timer-tab" data-mode="shortBreak" data-time="300">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M20 3H4v10a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4v-3h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm0 5h-2V5h2zM4 19h16v2H4z"></path></svg>
-                <span>Break 5m</span>
-              </button>
-
-              <button class="timer-tab" data-mode="longBreak" data-time="900">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12.3 2a10 10 0 0 0-.19 20 10 10 0 0 0 8.35-4.5 1 1 0 0 0-.85-1.5h-.5A7.5 7.5 0 0 1 11.6 8.5c0-2.32 1.05-4.4 2.7-5.8a1 1 0 0 0-.7-1.7h-.3z"></path></svg>
-                <span>Rest 15m</span>
-              </button>
-
-              <button class="timer-tab" data-mode="flow" data-time="3000">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M7 2v11h3v9l7-12h-4l4-8z"></path></svg>
-                <span>Flow 50m</span>
-              </button>
-            </div>
-
-            <!-- Custom Timer Presets Bar & Creator Trigger -->
-            <div class="custom-timers-bar">
-              <div class="custom-timers-list" id="customTimersList">
-                <!-- Dynamically rendered custom timers -->
-              </div>
-              <button id="addCustomTimerTriggerBtn" class="btn btn-xs btn-secondary add-timer-btn" title="Create New Custom Timer Preset">
-                <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path></svg>
-                <span>+ Custom Timer</span>
-              </button>
-            </div>
-
-            <!-- Inline Custom Timer Creation Form (Collapsible) -->
-            <form id="customTimerForm" class="custom-timer-form hidden">
-              <input type="text" id="customTimerNameInput" placeholder="Name (e.g. Sprint)" maxlength="20" required>
-              <input type="number" id="customTimerMinsInput" placeholder="Mins (e.g. 15)" min="1" max="180" value="15" required>
-              <button type="submit" class="btn btn-sm btn-primary">Create</button>
-              <button type="button" id="cancelCustomTimerBtn" class="btn btn-sm btn-ghost">Cancel</button>
-            </form>
-
-            <!-- Circular Visual Timer Display -->
-            <div class="timer-circle-container">
-              <svg class="timer-svg" viewBox="0 0 220 220">
-                <circle class="timer-track" cx="110" cy="110" r="95"></circle>
-                <circle class="timer-progress" id="timerProgressCircle" cx="110" cy="110" r="95"></circle>
-              </svg>
-              <div class="timer-digits-wrapper">
-                <div class="timer-digits" id="timerDisplay">25:00</div>
-                <div class="timer-status" id="timerStatusLabel">Ready to focus</div>
-              </div>
-            </div>
-
-            <!-- Timer Controls -->
-            <div class="timer-controls">
-              <button id="timerToggleBtn" class="btn btn-primary btn-lg">
-                <svg id="timerPlayIcon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                  <polygon points="6 4 20 12 6 20 6 4"></polygon>
-                </svg>
-                <span id="timerBtnText">Start Focus</span>
-              </button>
-              <button id="timerResetBtn" class="btn btn-secondary btn-icon" title="Reset Timer">
-                <!-- Solid Reset Icon -->
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-                  <path d="M12 4V1L8 5l4 4V6a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z"></path>
-                </svg>
-              </button>
-              <button id="timerSkipBtn" class="btn btn-secondary btn-icon" title="Skip Session">
-                <!-- Solid Skip Icon -->
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-                  <path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"></path>
-                </svg>
-              </button>
-            </div>
+          <!-- My User Code Pill -->
+          <div class="user-code-pill" id="myProfileModalTrigger" title="Click to view & copy your code">
+            <span id="headerUserAvatar">⚡</span>
+            <span class="code-badge" id="headerUserCodeBadge">RC-0000</span>
           </div>
-
-          <!-- Card 3: Ambient Soundscape Studio -->
-          <div class="card glass-card soundscape-card" id="soundscapeCard">
-            <div class="card-header">
-              <div class="card-title">
-                <div class="card-icon-badge">
-                  <!-- Solid Audio Note -->
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                    <path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"></path>
-                  </svg>
-                </div>
-                <span>Ambient Audio Mixer</span>
-              </div>
-              <div class="card-actions-right">
-                <button id="openSoundscapeFullscreenBtn" class="btn btn-xs btn-secondary" title="Open Fullscreen Sound Studio">
-                  <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"></path></svg>
-                  <span>Fullscreen</span>
-                </button>
-                <button id="resetSoundscapeBtn" class="btn btn-xs btn-ghost" title="Reset all audio volumes to 0%">
-                  <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M12 4V1L8 5l4 4V6a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z"></path></svg>
-                  <span>Reset</span>
-                </button>
-                <button id="masterSoundToggle" class="btn btn-xs btn-ghost">Mute All</button>
-              </div>
-            </div>
-
-            <!-- Soundscape Quick Presets -->
-            <div class="soundscape-presets-row">
-              <button class="soundscape-preset-pill" data-preset="rain">🌧️ Rain (60%)</button>
-              <button class="soundscape-preset-pill" data-preset="cafe">☕ Cafe (50%)</button>
-              <button class="soundscape-preset-pill" data-preset="forest">🌲 Forest (70%)</button>
-              <button class="soundscape-preset-pill" data-preset="ocean">🌊 Ocean (60%)</button>
-              <button class="soundscape-preset-pill" data-preset="binaural">🎧 432Hz (80%)</button>
-            </div>
-
-            <!-- Audio Sleep / Continuous Playback Timer Bar -->
-            <div class="audio-timer-bar">
-              <span class="audio-timer-label">Audio Timer:</span>
-              <div class="audio-timer-options" id="audioTimerOptions">
-                <button class="audio-timer-btn active" data-timer="continuous">∞ Continuous</button>
-                <button class="audio-timer-btn" data-timer="15">15m</button>
-                <button class="audio-timer-btn" data-timer="30">30m</button>
-                <button class="audio-timer-btn" data-timer="60">60m</button>
-              </div>
-              <span class="audio-timer-status" id="audioTimerLiveBadge">Continuous ∞</span>
-            </div>
-
-            <div class="sound-tracks-list">
-              <div class="sound-track-item">
-                <div class="sound-info">
-                  <span class="sound-emoji">🌧️</span>
-                  <span class="sound-name">Rainfall</span>
-                </div>
-                <input type="range" class="sound-slider" id="volRain" min="0" max="100" value="0">
-                <span class="sound-vol-val" id="valRain">0%</span>
-              </div>
-
-              <div class="sound-track-item">
-                <div class="sound-info">
-                  <span class="sound-emoji">☕</span>
-                  <span class="sound-name">Cafe</span>
-                </div>
-                <input type="range" class="sound-slider" id="volCafe" min="0" max="100" value="0">
-                <span class="sound-vol-val" id="valCafe">0%</span>
-              </div>
-
-              <div class="sound-track-item">
-                <div class="sound-info">
-                  <span class="sound-emoji">🌲</span>
-                  <span class="sound-name">Forest</span>
-                </div>
-                <input type="range" class="sound-slider" id="volForest" min="0" max="100" value="0">
-                <span class="sound-vol-val" id="valForest">0%</span>
-              </div>
-
-              <div class="sound-track-item">
-                <div class="sound-info">
-                  <span class="sound-emoji">🌊</span>
-                  <span class="sound-name">Ocean</span>
-                </div>
-                <input type="range" class="sound-slider" id="volOcean" min="0" max="100" value="0">
-                <span class="sound-vol-val" id="valOcean">0%</span>
-              </div>
-
-              <div class="sound-track-item">
-                <div class="sound-info">
-                  <span class="sound-emoji">🎧</span>
-                  <span class="sound-name">432Hz</span>
-                </div>
-                <input type="range" class="sound-slider" id="volBinaural" min="0" max="100" value="0">
-                <span class="sound-vol-val" id="valBinaural">0%</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 4: Daily Hydration & Wellness (Custom Goals & Logs) -->
-          <div class="card glass-card wellness-card">
-            <div class="card-header">
-              <div class="card-title">
-                <div class="card-icon-badge">
-                  <!-- Solid Water Droplet -->
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                    <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
-                  </svg>
-                </div>
-                <span>Hydration & Wellness</span>
-              </div>
-              <div class="wellness-target-wrap">
-                <button class="wellness-target-btn" id="waterTargetLabel" title="Click to edit daily water target">Goal: 2500 ml ✏️</button>
-              </div>
-            </div>
-
-            <!-- Inline Custom Goal Editor (Collapsible) -->
-            <div class="water-goal-edit-row hidden" id="waterGoalEditRow">
-              <label>Set Daily Goal (ml):</label>
-              <input type="number" id="customWaterGoalInput" value="2500" min="500" max="10000" step="100">
-              <button id="saveWaterGoalBtn" class="btn btn-xs btn-primary">Save</button>
-              <button id="cancelWaterGoalBtn" class="btn btn-xs btn-ghost">Cancel</button>
-            </div>
-
-            <div class="water-visualizer">
-              <div class="water-vessel">
-                <div class="water-wave-layer" id="waterLevelFill" style="height: 0%;"></div>
-              </div>
-              <div class="water-stats">
-                <div class="water-current" id="waterCurrentDisplay">0 <span class="unit">ml</span></div>
-                <div class="water-percentage" id="waterPercentDisplay">0% of daily goal</div>
-                
-                <!-- Quick Water Buttons & Custom Log Button -->
-                <div class="water-actions">
-                  <button id="addWater150" class="btn btn-water">+150 ml</button>
-                  <button id="addWater250" class="btn btn-water">+250 ml</button>
-                  <button id="addWater500" class="btn btn-water">+500 ml</button>
-                  <button id="addWater750" class="btn btn-water">+750 ml</button>
-                  <button id="customWaterLogBtn" class="btn btn-water btn-water-custom" title="Enter custom ml">+ Custom</button>
-                  <button id="resetWater" class="btn btn-sm btn-ghost">Reset</button>
-                </div>
-
-                <!-- Custom Water Log Row (Collapsible) -->
-                <div class="custom-water-log-row hidden" id="customWaterLogRow">
-                  <input type="number" id="customWaterLogInput" placeholder="Amount (e.g. 350 ml)" min="10" max="3000" step="50">
-                  <button id="saveCustomWaterLogBtn" class="btn btn-xs btn-primary">+ Add ml</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="micro-break-widget">
-              <div class="micro-break-info">
-                <span class="micro-break-icon">👁️</span>
-                <div>
-                  <div class="micro-break-title">20-20-20 Eye Break</div>
-                  <div class="micro-break-desc">Look 20ft away for 20s every 20m</div>
-                </div>
-              </div>
-              <label class="switch">
-                <input type="checkbox" id="eyeBreakToggle">
-                <span class="slider round"></span>
-              </label>
-            </div>
-          </div>
-
-          <!-- In-Page Sponsored Ad Unit: Focus & Wellness -->
-          <div class="in-page-ad-card" id="focusInPageAd">
-            <div class="ad-badge-header">
-              <span class="ad-badge-label">SPONSORED</span>
-            </div>
-            <div class="ad-content-wrapper">
-              <div class="ad-house-fallback" onclick="document.getElementById('headerProBtn').click()">
-                <div class="house-left">
-                  <span class="house-emoji">💎</span>
-                  <div class="house-info">
-                    <strong>Unlock FocusFlow Lifetime Pro (₹399)</strong>
-                    <p>Remove all ads forever & unlock unlimited 432Hz focus audio.</p>
-                  </div>
-                </div>
-                <button class="btn btn-xs btn-primary">Upgrade ₹399</button>
-              </div>
-              <ins class="adsbygoogle"
-                   style="display:block"
-                   data-ad-client="ca-pub-9957821482976268"
-                   data-ad-slot="auto"
-                   data-ad-format="auto"
-                   data-full-width-responsive="true"></ins>
-            </div>
-          </div>
-
         </div>
-      </section>
 
-      <!-- ================= TAB VIEW 2: DAILY TASKS (VERTICALLY STACKED) ================= -->
-      <section class="tab-view" id="viewTasks">
-        <div class="vertical-feed-layout">
-          
-          <div class="card glass-card task-card">
-            <div class="card-header">
-              <div class="card-title">
-                <div class="card-icon-badge">
-                  <!-- Solid Tasks Checklist -->
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                    <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-9 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"></path>
-                  </svg>
-                </div>
-                <span>Daily Task Flow</span>
-              </div>
-              <div class="task-progress-stat">
-                <span id="taskCountCompleted">0</span> / <span id="taskCountTotal">0</span> Done (<span id="taskPercentText">0%</span>)
-              </div>
-            </div>
-
-            <div class="progress-bar-container">
-              <div class="progress-bar-fill" id="taskProgressBar" style="width: 0%;"></div>
-            </div>
-
-            <form id="addTaskForm" class="task-input-form">
-              <div class="task-input-row">
-                <input type="text" id="taskInputText" placeholder="Add a task (e.g. 'Complete proposal @work')..." required maxlength="150">
-                <button type="submit" class="btn btn-primary btn-add-task">
-                  <span>Add Task</span>
-                </button>
-              </div>
-              <div class="task-options-row">
-                <div class="select-wrapper">
-                  <select id="taskPrioritySelect">
-                    <option value="high">🔴 High Priority</option>
-                    <option value="medium" selected>🟡 Medium Priority</option>
-                    <option value="low">🟢 Low Priority</option>
-                  </select>
-                </div>
-                <div class="select-wrapper">
-                  <select id="taskCategorySelect">
-                    <option value="work">💼 Work</option>
-                    <option value="personal">🏠 Personal</option>
-                    <option value="urgent">⚡ Urgent</option>
-                    <option value="health">🥗 Health</option>
-                  </select>
-                </div>
-                <input type="text" id="taskEstimateInput" placeholder="Est: 30m" maxlength="10">
-              </div>
-            </form>
-
-            <div class="task-filters">
-              <button class="filter-chip active" data-filter="all">All Tasks</button>
-              <button class="filter-chip" data-filter="pending">Pending</button>
-              <button class="filter-chip" data-filter="high">High Priority</button>
-              <button class="filter-chip" data-filter="work">Work</button>
-              <button class="filter-chip" data-filter="personal">Personal</button>
-              <button class="filter-chip" data-filter="completed">Completed</button>
-            </div>
-
-            <div class="task-list-container task-list-expanded">
-              <ul id="taskList" class="task-list">
-                <!-- Rendered dynamically -->
-              </ul>
-              <div class="empty-state hidden" id="taskEmptyState">
-                <span class="empty-icon">✨</span>
-                <p>No tasks here. Add your first goal for today!</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- In-Page Sponsored Ad Unit: Daily Tasks -->
-          <div class="in-page-ad-card" id="tasksInPageAd">
-            <div class="ad-badge-header">
-              <span class="ad-badge-label">SPONSORED</span>
-            </div>
-            <div class="ad-content-wrapper">
-              <div class="ad-house-fallback" onclick="document.getElementById('headerProBtn').click()">
-                <div class="house-left">
-                  <span class="house-emoji">💎</span>
-                  <div class="house-info">
-                    <strong>Boost Daily Output with FocusFlow Pro</strong>
-                    <p>Unlimited custom Pomodoros & ad-free deep flow — ₹399 Lifetime.</p>
-                  </div>
-                </div>
-                <button class="btn btn-xs btn-primary">Upgrade</button>
-              </div>
-              <ins class="adsbygoogle"
-                   style="display:block"
-                   data-ad-client="ca-pub-9957821482976268"
-                   data-ad-slot="auto"
-                   data-ad-format="auto"
-                   data-full-width-responsive="true"></ins>
-            </div>
-          </div>
-
+        <!-- Quick Code Actions -->
+        <div class="sidebar-actions-row">
+          <button class="btn-sidebar-action" id="findUserModalTrigger">
+            <span>👤</span> Find by Code
+          </button>
+          <button class="btn-sidebar-action" id="groupModalTrigger">
+            <span>👥</span> Group Rooms
+          </button>
+          <button class="btn-sidebar-action" id="settingsModalTrigger" title="Settings & Themes">
+            <span>⚙️</span>
+          </button>
         </div>
-      </section>
+      </div>
 
-      <!-- ================= TAB VIEW 3: EVERYDAY TOOLBOX (VERTICALLY STACKED) ================= -->
-      <section class="tab-view" id="viewToolbox">
-        <div class="vertical-feed-layout">
-          
-          <div class="card glass-card toolbox-card">
-            <div class="card-header">
-              <div class="card-title">
-                <div class="card-icon-badge">
-                  <!-- Solid Toolbox / Utilities -->
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                    <path d="M20 6h-4V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11z"></path>
-                  </svg>
-                </div>
-                <span>Everyday Micro-Toolbox</span>
-              </div>
-              
-              <div class="toolbox-tabs">
-                <button class="toolbox-tab active" data-tab="scratchpad">📝 Scratchpad Notes</button>
-                <button class="toolbox-tab" data-tab="expenses">💰 Daily Spend</button>
-                <button class="toolbox-tab" data-tab="calculator">🧮 Tip & Split</button>
-              </div>
-            </div>
-
-            <!-- Tool 1: Instant Scratchpad -->
-            <div class="toolbox-panel active" id="panelScratchpad">
-              <div class="scratchpad-toolbar">
-                <span class="scratchpad-stats" id="scratchStats">0 words | Auto-saved</span>
-                <div class="scratchpad-actions">
-                  <button id="copyScratchBtn" class="btn btn-xs btn-ghost">Copy</button>
-                  <button id="clearScratchBtn" class="btn btn-xs btn-ghost">Clear</button>
-                </div>
-              </div>
-              <textarea id="scratchpadArea" class="scratchpad-textarea scratchpad-expanded" placeholder="Paste links, temporary phone numbers, meeting notes, code snippets, or thoughts here... (Instantly saved)"></textarea>
-            </div>
-
-            <!-- Tool 2: Daily Expense Logger -->
-            <div class="toolbox-panel" id="panelExpenses">
-              <div class="expense-overview">
-                <div class="expense-stat">
-                  <span class="stat-label">Spent Today</span>
-                  <span class="stat-val" id="spentTodayVal">$0.00</span>
-                </div>
-                <div class="expense-stat">
-                  <span class="stat-label">Daily Budget</span>
-                  <span class="stat-val" id="dailyBudgetVal">$40.00</span>
-                </div>
-                <div class="expense-stat">
-                  <span class="stat-label">Remaining</span>
-                  <span class="stat-val" id="remainingBudgetVal">$40.00</span>
-                </div>
-              </div>
-
-              <div class="expense-bar-container">
-                <div class="expense-bar-fill" id="expenseBarFill" style="width: 0%;"></div>
-              </div>
-
-              <form id="addExpenseForm" class="expense-input-row">
-                <input type="text" id="expenseDescInput" placeholder="Item (e.g. Lunch)" required maxlength="40">
-                <input type="number" id="expenseAmountInput" placeholder="$ Amount" min="0.01" step="0.01" required>
-                <select id="expenseCatSelect">
-                  <option value="food">🍔 Food</option>
-                  <option value="coffee">☕ Coffee</option>
-                  <option value="transit">🚗 Transit</option>
-                  <option value="shopping">🛍️ Shop</option>
-                  <option value="other">📦 Other</option>
-                </select>
-                <button type="submit" class="btn btn-primary btn-sm">Log Expense</button>
-              </form>
-
-              <ul class="expense-list expense-list-expanded" id="expenseList">
-                <!-- Rendered dynamically -->
-              </ul>
-            </div>
-
-            <!-- Tool 3: Tip & Split Calculator -->
-            <div class="toolbox-panel" id="panelCalculator">
-              <div class="calc-grid">
-                <div class="calc-input-group">
-                  <label>Bill Amount ($)</label>
-                  <input type="number" id="calcBillAmount" placeholder="0.00" min="0" step="0.01">
-                </div>
-                <div class="calc-input-group">
-                  <label>Tip Percentage</label>
-                  <div class="tip-preset-buttons">
-                    <button class="tip-btn" data-tip="10">10%</button>
-                    <button class="tip-btn active" data-tip="15">15%</button>
-                    <button class="tip-btn" data-tip="18">18%</button>
-                    <button class="tip-btn" data-tip="20">20%</button>
-                  </div>
-                </div>
-                <div class="calc-input-group">
-                  <label>Split (People)</label>
-                  <div class="stepper-row">
-                    <button id="splitMinus" class="btn btn-sm btn-ghost">-</button>
-                    <span id="splitCount">1 Person</span>
-                    <button id="splitPlus" class="btn btn-sm btn-ghost">+</button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="calc-result-box">
-                <div class="calc-result-item">
-                  <span>Tip Amount:</span>
-                  <strong id="resTipTotal">$0.00</strong>
-                </div>
-                <div class="calc-result-item">
-                  <span>Total Bill:</span>
-                  <strong id="resTotalBill">$0.00</strong>
-                </div>
-                <div class="calc-result-item">
-                  <span>Per Person:</span>
-                  <strong id="resPerPerson">$0.00</strong>
-              </div>
-            <!-- In-Page Sponsored Ad Unit (Google AdSense/AdMob: pub-9957821482976268) -->
-            <div class="in-page-ad-card" id="inPageAdContainer">
-              <div class="ad-badge-header">
-                <span class="ad-badge-label">SPONSORED</span>
-              </div>
-              <div class="ad-content-wrapper">
-                <div class="ad-house-fallback" onclick="document.getElementById('headerProBtn').click()">
-                  <div class="house-left">
-                    <span class="house-emoji">💎</span>
-                    <div class="house-info">
-                      <strong>FocusFlow Lifetime Pro — ₹399</strong>
-                      <p>Enjoy all productivity tools with zero ads and 100% offline privacy.</p>
-                    </div>
-                  </div>
-                  <button class="btn btn-xs btn-primary">Get Pro</button>
-                </div>
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-9957821482976268"
-                     data-ad-slot="auto"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
-              </div>
-            </div>
-          </div>
-
+      <!-- Search Input -->
+      <div class="sidebar-search-box">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="chatSearchInput" class="search-input" placeholder="Search chats or enter code...">
         </div>
-      </section>
+      </div>
 
-      <!-- ================= TAB VIEW 4: HABITS & REFLECTION (VERTICALLY STACKED) ================= -->
-      <section class="tab-view" id="viewHabits">
-        <div class="vertical-feed-layout">
-          
-          <!-- Card 1: Daily Habits & Streak Matrix -->
-          <div class="card glass-card habit-card">
-            <div class="card-header">
-              <div class="card-title">
-                <div class="card-icon-badge">
-                  <!-- Solid Habits Flame / Streak -->
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path>
-                  </svg>
-                </div>
-                <span>Daily Habits & Streaks</span>
-              </div>
-              <button id="addHabitModalTrigger" class="btn-text-link">+ Add Habit</button>
-            </div>
+      <!-- Rooms / Conversations Feed -->
+      <div class="rooms-list" id="roomsListContainer">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </aside>
 
-            <div class="habit-list" id="habitList">
-              <!-- Rendered dynamically -->
-            </div>
+    <!-- ================= MAIN CHAT VIEW PANEL ================= -->
+    <main class="chat-view-panel" id="chatViewPanel">
+      
+      <!-- Active Room Header -->
+      <header class="chat-room-header">
+        <div class="room-identity-wrap">
+          <button class="back-btn" id="chatBackToListBtn">←</button>
+          <div class="active-avatar" id="activeRoomAvatar">💬</div>
+          <div class="active-room-meta">
+            <h2 class="active-title" id="activeRoomTitle">Select a Conversation</h2>
+            <span class="active-subtitle" id="activeRoomSubtitle">End-to-End Encrypted</span>
           </div>
-
-          <!-- Card 2: Daily Mood & Energy Tracker with Custom Emoji Input -->
-          <div class="card glass-card mood-card">
-            <div class="card-header">
-              <div class="card-title">
-                <div class="card-icon-badge">
-                  <!-- Solid Mood / Smile -->
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                    <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm3.5-9a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5zm-7 0A1.5 1.5 0 1 1 7 9.5 1.5 1.5 0 0 1 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"></path>
-                  </svg>
-                </div>
-                <span>Daily Mood & Energy</span>
-              </div>
-            </div>
-
-            <div class="mood-selector" id="moodSelector">
-              <button class="mood-btn" data-mood="great" title="Great">⚡ Great</button>
-              <button class="mood-btn" data-mood="good" title="Good">✨ Good</button>
-              <button class="mood-btn" data-mood="okay" title="Neutral">🌱 Okay</button>
-              <button class="mood-btn" data-mood="tired" title="Low Energy">☕ Tired</button>
-              <button class="mood-btn" data-mood="stressed" title="Stressed">🌧️ Stress</button>
-            </div>
-
-            <div class="custom-mood-row">
-              <input type="text" id="customMoodEmoji" placeholder="Emoji" maxlength="2" class="custom-mood-emoji-input">
-              <input type="text" id="customMoodLabel" placeholder="Custom feeling (e.g. Victorious, Reflective...)" maxlength="25" class="custom-mood-text-input">
-              <button id="saveCustomMoodBtn" class="btn btn-xs btn-primary">Log Feeling</button>
-            </div>
-            <div id="moodStatusText" class="mood-status-text">Log your baseline energy for today</div>
-          </div>
-
-          <!-- Card 3: Evening Reflection & Gratitude (With Multi-Word Wrap & Win Sharing) -->
-          <div class="card glass-card reflection-card">
-            <div class="card-header">
-              <div class="card-title">
-                <div class="card-icon-badge">
-                  <!-- Solid Moon / Star -->
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                    <path d="M12.3 2a10 10 0 0 0-1.9 20 10 10 0 0 0 9.6-13.4A9.96 9.96 0 0 1 12.3 2z"></path>
-                  </svg>
-                </div>
-                <span>Evening Reflection & Daily Wins</span>
-              </div>
-            </div>
-
-            <div class="reflection-prompts">
-              <div class="prompt-group">
-                <div class="prompt-label-row">
-                  <label>🏆 What was your biggest win today?</label>
-                  <button id="shareWinBtn" class="btn-text-link">Share Win ✨</button>
-                </div>
-                <input type="text" id="reflectWin" placeholder="Finished major project milestone, hit gym..." maxlength="150">
-              </div>
-
-              <div class="prompt-group">
-                <label>🙏 What are you grateful for?</label>
-                <input type="text" id="reflectGrateful" placeholder="Good coffee, supportive teammate..." maxlength="150">
-              </div>
-
-              <div class="prompt-group">
-                <label>📈 What can you improve tomorrow?</label>
-                <input type="text" id="reflectImprove" placeholder="Start morning session 15 mins earlier..." maxlength="150">
-              </div>
-
-              <button id="saveReflectionBtn" class="btn btn-primary btn-full">
-                <span>Save Reflection</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Card 4: Weekly Summary & Consistency Pulse -->
-          <div class="card glass-card weekly-card">
-            <div class="card-header">
-              <div class="card-title">
-                <div class="card-icon-badge">
-                  <!-- Solid Bar Graph / Consistency -->
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                    <path d="M4 9h4v11H4zm6-5h4v16h-4zm6 8h4v8h-4z"></path>
-                  </svg>
-                </div>
-                <span>Weekly Consistency Pulse</span>
-              </div>
-              <span class="weekly-streak-badge" id="overallStreakBadge">🔥 5 Days</span>
-            </div>
-
-            <div class="weekly-pulse-bars" id="weeklyPulseBars">
-              <!-- Rendered dynamically for Mon to Sun -->
-            </div>
-          </div>
-
-          <!-- In-Page Sponsored Ad Unit: Habits & Reflection -->
-          <div class="in-page-ad-card" id="habitsInPageAd">
-            <div class="ad-badge-header">
-              <span class="ad-badge-label">SPONSORED</span>
-            </div>
-            <div class="ad-content-wrapper">
-              <div class="ad-house-fallback" onclick="document.getElementById('headerProBtn').click()">
-                <div class="house-left">
-                  <span class="house-emoji">💎</span>
-                  <div class="house-info">
-                    <strong>Build Long-Term Focus with FocusFlow Pro</strong>
-                    <p>Lifetime access with 0 subscriptions & 0 sponsored ads — ₹399.</p>
-                  </div>
-                </div>
-                <button class="btn btn-xs btn-primary">Get Pro</button>
-              </div>
-              <ins class="adsbygoogle"
-                   style="display:block"
-                   data-ad-client="ca-pub-9957821482976268"
-                   data-ad-slot="auto"
-                   data-ad-format="auto"
-                   data-full-width-responsive="true"></ins>
-            </div>
-          </div>
-
         </div>
-      </section>
 
+        <div class="header-right-actions">
+          <span class="room-code-badge" id="activeRoomCodeTag">CODE</span>
+          <button class="btn-sidebar-action" id="headerVipBtn" title="VIP Upgrade (₹399)">💎 VIP</button>
+        </div>
+      </header>
+
+      <!-- Messages Stream -->
+      <div class="chat-messages-stream" id="chatMessagesStream">
+        <div class="empty-messages-placeholder">
+          <span class="placeholder-emoji">⚡</span>
+          <h4>Retro Chat Network</h4>
+          <p>Select any room on the left or enter a Friend's User Code to begin.</p>
+        </div>
+      </div>
+
+      <!-- Message Input Bar -->
+      <footer class="chat-input-bar">
+        <button class="input-action-btn" id="chatAttachMediaBtn" title="Attach Media">📎</button>
+        <textarea id="chatMessageInput" class="chat-textarea" placeholder="Type an encrypted message..." rows="1"></textarea>
+        <button class="btn-send-message" id="chatSendBtn" title="Send Message">➤</button>
+      </footer>
     </main>
 
-    <!-- Footer -->
-    <footer class="app-footer">
-      <div class="footer-content">
-        <span>FocusFlow • 100% Private & Auto-Saved Offline</span>
-      </div>
-    </footer>
-
   </div>
 
-  <!-- ================= STICKY DOCKED BOTTOM AD BANNER (Google AdSense/AdMob: pub-9957821482976268) ================= -->
-  <div class="docked-bottom-ad-banner" id="dockedAdBanner">
-    <div class="docked-ad-header">
-      <span class="docked-ad-badge">SPONSORED</span>
-      <button class="docked-ad-close-btn" id="closeDockedAdBtn" title="Dismiss banner">&times;</button>
-    </div>
-    <div class="docked-ad-body">
-      <div class="docked-house-fallback" onclick="document.getElementById('headerProBtn').click()">
-        <span class="house-emoji">💎</span>
-        <span class="docked-house-title"><strong>FocusFlow Pro:</strong> Ad-Free & Unlimited Focus Audio — ₹399</span>
-        <button class="btn btn-xs btn-primary">Upgrade</button>
+  <!-- ================= MODAL: FIND USER BY CODE ================= -->
+  <div id="findUserModal" class="modal-backdrop hidden">
+    <div class="modal-dialog">
+      <h3 class="modal-title">Find User by Code</h3>
+      <p class="modal-sub">Enter any friend's 6-character User Code to start a private 1-on-1 chat.</p>
+
+      <div class="form-group">
+        <label>FRIEND'S USER CODE</label>
+        <input type="text" id="userCodeInput" class="form-control code-input-large" placeholder="RC-XXXX" maxlength="8">
       </div>
-      <ins class="adsbygoogle"
-           style="display:inline-block;width:100%;height:50px"
-           data-ad-client="ca-pub-9957821482976268"
-           data-ad-slot="auto"
-           data-ad-format="horizontal"
-           data-full-width-responsive="true"></ins>
+
+      <div class="modal-actions-row">
+        <button id="submitFindUserBtn" class="btn btn-primary btn-full mb-2">⚡ Start Secret Chat</button>
+        <button class="btn btn-secondary btn-full modal-cancel-btn">Cancel</button>
+      </div>
+      <button class="modal-close">&times;</button>
     </div>
   </div>
 
-  <!-- ================= UNIVERSAL DOCKED BOTTOM NAVIGATION BAR (SOLID PREMIUM ICONS) ================= -->
-  <nav class="app-bottom-nav">
-    <button class="nav-tab-btn active" data-tab="focus">
-      <!-- Solid Target / Focus Icon -->
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-        <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm0-14a6 6 0 1 0 6 6 6 6 0 0 0-6-6zm0 10a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"></path>
-      </svg>
-      <span>Focus</span>
-    </button>
-    
-    <button class="nav-tab-btn" data-tab="tasks">
-      <!-- Solid Checklist Icon -->
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-        <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-9 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"></path>
-      </svg>
-      <span>Tasks</span>
-    </button>
-    
-    <button class="nav-tab-btn" data-tab="toolbox">
-      <!-- Solid Toolbox Icon -->
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-        <path d="M20 6h-4V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11z"></path>
-      </svg>
-      <span>Tools</span>
-    </button>
-    
-    <button class="nav-tab-btn" data-tab="habits">
-      <!-- Solid Habits Trend / Flame Icon -->
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-4-4 1.41-1.41L11 14.17l6.59-6.59L19 9l-8 8z"></path>
-      </svg>
-      <span>Habits</span>
-    </button>
-    
-    <button class="nav-tab-btn" id="bottomZenNavBtn">
-      <!-- Solid Zen Spark Icon -->
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-        <path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2z"></path>
-      </svg>
-      <span>Zen</span>
-    </button>
-  </nav>
-
-  <!-- ================= GLOBAL FLOATING ALARM RINGING BANNER ================= -->
-  <div id="alarmRingingBanner" class="alarm-ringing-banner hidden">
-    <div class="alarm-banner-content">
-      <span class="alarm-banner-icon">🔔</span>
-      <div class="alarm-banner-text">
-        <strong>Timer Finished!</strong>
-        <span>Alarm is ringing</span>
+  <!-- ================= MODAL: CREATE OR JOIN GROUP ================= -->
+  <div id="groupModal" class="modal-backdrop hidden">
+    <div class="modal-dialog">
+      <div class="modal-tabs-header">
+        <button class="modal-tab-btn active" id="tabCreateGroup">Create Group</button>
+        <button class="modal-tab-btn" id="tabJoinGroup">Join with Code</button>
       </div>
-      <button id="globalStopAlarmBtn" class="btn btn-danger btn-stop-alarm">
-        🔕 Stop Alarm
+
+      <!-- Tab 1: Create Group Form -->
+      <div id="formCreateGroup">
+        <div class="form-group">
+          <label>GROUP NAME</label>
+          <input type="text" id="newGroupNameInput" class="form-control" placeholder="e.g. Cyberpunk Gamers, Squad Room" maxlength="35">
+        </div>
+        <div class="form-group">
+          <label>GROUP EMOJI / AVATAR</label>
+          <input type="text" id="newGroupAvatarInput" class="form-control" placeholder="👾" maxlength="2" value="👥">
+        </div>
+        <div class="form-group">
+          <label>DESCRIPTION (OPTIONAL)</label>
+          <input type="text" id="newGroupDescInput" class="form-control" placeholder="What's this group about?" maxlength="80">
+        </div>
+        <button id="submitCreateGroupBtn" class="btn btn-primary btn-full">🚀 Create Group & Generate Code</button>
+      </div>
+
+      <!-- Tab 2: Join Group Form -->
+      <div id="formJoinGroup" class="hidden">
+        <div class="form-group">
+          <label>ENTER GROUP CODE</label>
+          <input type="text" id="joinGroupCodeInput" class="form-control code-input-large" placeholder="GRP-XXXX" maxlength="10">
+        </div>
+        <button id="submitJoinGroupBtn" class="btn btn-primary btn-full">🚪 Join Group Room</button>
+      </div>
+
+      <button class="modal-close">&times;</button>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: MY PROFILE & USER CODE ================= -->
+  <div id="myProfileModal" class="modal-backdrop hidden">
+    <div class="modal-dialog">
+      <h3 class="modal-title">My User Identity</h3>
+      <p class="modal-sub">Share your personal User Code to have others message you.</p>
+
+      <div class="profile-code-box">
+        <div class="profile-code-val" id="profileCodeDisplay">RC-0000</div>
+        <div class="d-flex gap-2">
+          <button id="copyMyUserCodeBtn" class="btn btn-xs btn-primary">📋 Copy Code</button>
+          <button id="shareMyCodeBtn" class="btn btn-xs btn-secondary">🚀 Share Invite Link</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>DISPLAY NAME</label>
+        <input type="text" id="profileNameInput" class="form-control" maxlength="25">
+      </div>
+
+      <div class="form-group">
+        <label>AVATAR EMOJI</label>
+        <input type="text" id="profileAvatarInput" class="form-control" maxlength="2">
+      </div>
+
+      <div class="form-group">
+        <label>STATUS MESSAGE</label>
+        <input type="text" id="profileStatusInput" class="form-control" maxlength="40">
+      </div>
+
+      <button id="saveProfileBtn" class="btn btn-primary btn-full mb-2">Save Profile</button>
+      <button class="modal-close">&times;</button>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: RETRO CHAT VIP PASS (₹399 LIFETIME) ================= -->
+  <div id="retroVipModal" class="modal-backdrop hidden">
+    <div class="modal-dialog">
+      <div class="text-center mb-3">
+        <span style="font-size: 2.5rem;">💎</span>
+        <h3 class="modal-title mt-1">Retro Chat VIP Pass</h3>
+        <p class="modal-sub">₹399 / One-Time Lifetime • Google Play Account License</p>
+      </div>
+
+      <div class="vip-benefits-list mb-3">
+        <p>✓ 100% Ad-Free Forever</p>
+        <p>✓ Unlock All 4 Animated Neon Themes</p>
+        <p>✓ Unlimited Pinned Group Rooms</p>
+        <p>✓ Custom Glowing Message Bubbles</p>
+      </div>
+
+      <button id="buyRetroVipBtn" class="btn btn-primary btn-lg btn-full mb-2">
+        🚀 Pay via Google Play Store (₹399)
       </button>
+      <button id="restoreRetroVipBtn" class="btn btn-secondary btn-sm btn-full text-muted">
+        🔄 Restore Purchase
+      </button>
+
+      <button class="modal-close">&times;</button>
     </div>
   </div>
 
-  <!-- ================= FULLSCREEN ZEN FOCUS OVERLAY ================= -->
-  <div id="zenOverlay" class="zen-overlay hidden">
-    <div class="zen-content">
+  <!-- ================= MODAL: SETTINGS & THEMES ================= -->
+  <div id="chatSettingsModal" class="modal-backdrop hidden">
+    <div class="modal-dialog">
+      <h3 class="modal-title">Settings & Themes</h3>
       
-      <!-- Zen Header Bar -->
-      <div class="zen-header">
-        <div class="zen-live-indicator">
-          <span class="pulse-dot"></span>
-          <span class="zen-badge-text">ZEN FOCUS COCKPIT</span>
-        </div>
-        <div class="zen-header-right">
-          <span class="zen-clock-live" id="zenLiveClock">--:--</span>
-          <button id="exitZenBtn" class="btn btn-icon btn-ghost" title="Exit Zen (Esc)">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
-            </svg>
-          </button>
+      <div class="form-group mt-3">
+        <label>RETRO CHAT THEME</label>
+        <div class="theme-options-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+          <button class="btn btn-secondary theme-option-btn active" data-theme="cyber-neon">⚡ Cyber Neon</button>
+          <button class="btn btn-secondary theme-option-btn" data-theme="matrix-green">🟢 Matrix Green</button>
+          <button class="btn btn-secondary theme-option-btn" data-theme="vaporwave">🟣 Vaporwave</button>
+          <button class="btn btn-secondary theme-option-btn" data-theme="midnight">⚫ Midnight</button>
         </div>
       </div>
 
-      <!-- Zen Alarm Ringing Banner with Stop Button -->
-      <div id="zenAlarmBanner" class="zen-alarm-banner hidden">
-        <button id="zenStopAlarmBtn" class="btn btn-danger btn-lg btn-pulse-alarm">
-          🔕 Stop Alarm Sound
-        </button>
-      </div>
+      <hr class="modal-divider" style="margin: 1rem 0; border: 0; border-top: 1px solid var(--border-color);">
 
-      <!-- Active Goal / Task Spotlight Card -->
-      <div class="zen-active-task-card">
-        <div class="zen-task-meta">
-          <span class="zen-task-tag">🎯 #1 TODAY'S PRIORITY</span>
-          <button id="zenCompletePriorityBtn" class="btn-zen-complete-task" title="Mark this goal as completed">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"></path></svg>
-            <span>Mark Complete</span>
-          </button>
-        </div>
-        <div class="zen-task-spotlight" id="zenTaskSpotlight">
-          "Focus on your highest leverage task"
-        </div>
-      </div>
+      <button id="clearChatDataBtn" class="btn btn-secondary btn-full" style="color: #f87171;">
+        ⚠️ Clear Chat History
+      </button>
 
-      <!-- Zen Timer HUD with Phase & Progress Bar -->
-      <div class="zen-timer-hud">
-        <div class="zen-timer-phase-badge" id="zenPhaseBadge">🎯 Deep Work Interval</div>
-        <div class="zen-timer-huge" id="zenTimerDisplay">25:00</div>
-        
-        <!-- Live Session Progress Bar -->
-        <div class="zen-session-progress-wrap">
-          <div class="zen-session-progress-bar" id="zenSessionProgressBar"></div>
-        </div>
-        <div class="zen-progress-info">
-          <span id="zenProgressPercentage">0% Completed</span>
-          <span id="zenSessionTimeRemaining">25:00 Remaining</span>
-        </div>
-      </div>
-
-      <!-- Daily Focus & Wellness Metrics HUD (4 Glass Cards) -->
-      <div class="zen-metrics-grid">
-        <div class="zen-metric-card">
-          <div class="zen-metric-header">
-            <span class="zen-metric-icon">🎯</span>
-            <span class="zen-metric-title">Sessions Target</span>
-          </div>
-          <div class="zen-metric-val" id="zenSessionsCount">1 / 4 Done</div>
-          <div class="zen-session-dots" id="zenSessionDots">
-            <!-- Dynamic session indicator pills -->
-          </div>
-        </div>
-
-        <div class="zen-metric-card">
-          <div class="zen-metric-header">
-            <span class="zen-metric-icon">⏱️</span>
-            <span class="zen-metric-title">Focus Time Today</span>
-          </div>
-          <div class="zen-metric-val" id="zenTotalMins">25m Focused</div>
-          <span class="zen-metric-sub" id="zenDailyGoalSub">Daily Target: 100m</span>
-        </div>
-
-        <div class="zen-metric-card">
-          <div class="zen-metric-header">
-            <span class="zen-metric-icon">💧</span>
-            <span class="zen-metric-title">Hydration Level</span>
-          </div>
-          <div class="zen-metric-val" id="zenWaterStatus">750 / 2500 ml</div>
-          <button id="zenQuickSipBtn" class="btn btn-xs btn-water-zen" title="Log quick 250ml glass of water">
-            +250ml Sip 💧
-          </button>
-        </div>
-
-        <div class="zen-metric-card">
-          <div class="zen-metric-header">
-            <span class="zen-metric-icon">🔥</span>
-            <span class="zen-metric-title">Consistency Streak</span>
-          </div>
-          <div class="zen-metric-val" id="zenStreakStatus">5 Days</div>
-          <span class="zen-metric-sub">Daily Discipline Compounding</span>
-        </div>
-      </div>
-
-      <!-- Next Up Task Peek -->
-      <div class="zen-next-task-row" id="zenNextTaskRow">
-        <span class="zen-next-label">Next Up in Tasks:</span>
-        <span class="zen-next-title" id="zenNextTaskText">Deep focus session on key deliverables</span>
-      </div>
-
-      <!-- Quick Set Minutes & Seconds in Full Screen -->
-      <div class="zen-time-setter" id="zenTimeSetter">
-        <div class="zen-quick-adjust-row">
-          <button type="button" class="btn btn-xs btn-ghost zen-adjust-btn" data-sec="-300">-5m</button>
-          <button type="button" class="btn btn-xs btn-ghost zen-adjust-btn" data-sec="-60">-1m</button>
-          <button type="button" class="btn btn-xs btn-ghost zen-adjust-btn" data-sec="-10">-10s</button>
-          <button type="button" class="btn btn-xs btn-secondary zen-custom-time-toggle" id="zenCustomTimeToggleBtn">⏱️ Set Min/Sec</button>
-          <button type="button" class="btn btn-xs btn-ghost zen-adjust-btn" data-sec="10">+10s</button>
-          <button type="button" class="btn btn-xs btn-ghost zen-adjust-btn" data-sec="60">+1m</button>
-          <button type="button" class="btn btn-xs btn-ghost zen-adjust-btn" data-sec="300">+5m</button>
-        </div>
-
-        <!-- Custom Min & Sec Inputs Panel -->
-        <div class="zen-custom-inputs-row hidden" id="zenCustomInputsRow">
-          <div class="zen-input-group">
-            <input type="number" id="zenMinInput" min="0" max="180" placeholder="Min" value="25">
-            <span>m</span>
-          </div>
-          <span class="zen-colon">:</span>
-          <div class="zen-input-group">
-            <input type="number" id="zenSecInput" min="0" max="59" placeholder="Sec" value="00">
-            <span>s</span>
-          </div>
-          <button type="button" id="zenApplyCustomTimeBtn" class="btn btn-xs btn-primary">Set Time</button>
-        </div>
-      </div>
-
-      <!-- Primary Zen Controls -->
-      <div class="zen-controls">
-        <button id="zenTimerToggleBtn" class="btn btn-primary btn-xl">
-          <span id="zenBtnText">Start Focus</span>
-        </button>
-        <button id="zenResetTimerBtn" class="btn btn-secondary btn-xl" title="Reset Timer">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-            <path d="M12 4V1L8 5l4 4V6a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z"></path>
-          </svg>
-        </button>
-        <button id="zenSkipTimerBtn" class="btn btn-ghost btn-xl" title="Skip Session">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-            <path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"></path>
-          </svg>
-        </button>
-      </div>
-
-      <!-- Zen Ambient Audio Dock -->
-      <div class="zen-audio-bar">
-        <span class="zen-audio-label">Soundscape:</span>
-        <button class="zen-sound-pill active" data-sound="rain">🌧️ Rain</button>
-        <button class="zen-sound-pill" data-sound="cafe">☕ Cafe</button>
-        <button class="zen-sound-pill" data-sound="forest">🌲 Forest</button>
-        <button class="zen-sound-pill" data-sound="ocean">🌊 Ocean</button>
-        <button class="zen-sound-pill" data-sound="binaural">🎧 432Hz</button>
-        <button class="zen-sound-pill" data-sound="mute">🔇 Mute</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= FULLSCREEN AMBIENT SOUNDSCAPE STUDIO OVERLAY ================= -->
-  <div id="soundscapeFullscreenOverlay" class="soundscape-fullscreen-overlay hidden">
-    <div class="soundscape-fullscreen-content">
-      <div class="soundscape-fullscreen-header">
-        <div class="card-icon-badge">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-            <path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"></path>
-          </svg>
-        </div>
-        <div class="soundscape-fullscreen-title">
-          <h2>Ambient Soundscape Studio</h2>
-          <span id="fsSoundTimerBadge" class="fs-sound-timer-badge">Continuous ∞</span>
-        </div>
-        <button id="exitSoundscapeFullscreenBtn" class="btn btn-icon btn-ghost" title="Exit Fullscreen Sound Studio">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
-          </svg>
-        </button>
-      </div>
-
-      <!-- Animated Sound Wave Aura -->
-      <div class="sound-wave-aura">
-        <div class="sound-wave-bar"></div>
-        <div class="sound-wave-bar"></div>
-        <div class="sound-wave-bar"></div>
-        <div class="sound-wave-bar"></div>
-        <div class="sound-wave-bar"></div>
-      </div>
-
-      <!-- Quick Preset Soundscapes -->
-      <div class="fs-presets-row">
-        <button class="soundscape-preset-pill" data-preset="rain">🌧️ Rain (60%)</button>
-        <button class="soundscape-preset-pill" data-preset="cafe">☕ Cafe (50%)</button>
-        <button class="soundscape-preset-pill" data-preset="forest">🌲 Forest (70%)</button>
-        <button class="soundscape-preset-pill" data-preset="ocean">🌊 Ocean (60%)</button>
-        <button class="soundscape-preset-pill" data-preset="binaural">🎧 432Hz (80%)</button>
-      </div>
-
-      <!-- Continuous Playback / Sleep Timer Options -->
-      <div class="fs-audio-timer-group">
-        <label>Continuous Playback / Sleep Timer:</label>
-        <div class="audio-timer-options" id="fsAudioTimerOptions">
-          <button class="audio-timer-btn active" data-timer="continuous">∞ Continuous</button>
-          <button class="audio-timer-btn" data-timer="15">15 mins</button>
-          <button class="audio-timer-btn" data-timer="30">30 mins</button>
-          <button class="audio-timer-btn" data-timer="60">60 mins</button>
-        </div>
-      </div>
-
-      <!-- Fullscreen Sound Mixer Sliders -->
-      <div class="fs-sound-tracks-grid">
-        <div class="sound-track-item">
-          <div class="sound-info">
-            <span class="sound-emoji">🌧️</span>
-            <span class="sound-name">Rainfall</span>
-          </div>
-          <input type="range" class="sound-slider" id="fsVolRain" min="0" max="100" value="0">
-          <span class="sound-vol-val" id="fsValRain">0%</span>
-        </div>
-
-        <div class="sound-track-item">
-          <div class="sound-info">
-            <span class="sound-emoji">☕</span>
-            <span class="sound-name">Cafe</span>
-          </div>
-          <input type="range" class="sound-slider" id="fsVolCafe" min="0" max="100" value="0">
-          <span class="sound-vol-val" id="fsValCafe">0%</span>
-        </div>
-
-        <div class="sound-track-item">
-          <div class="sound-info">
-            <span class="sound-emoji">🌲</span>
-            <span class="sound-name">Forest</span>
-          </div>
-          <input type="range" class="sound-slider" id="fsVolForest" min="0" max="100" value="0">
-          <span class="sound-vol-val" id="fsValForest">0%</span>
-        </div>
-
-        <div class="sound-track-item">
-          <div class="sound-info">
-            <span class="sound-emoji">🌊</span>
-            <span class="sound-name">Ocean</span>
-          </div>
-          <input type="range" class="sound-slider" id="fsVolOcean" min="0" max="100" value="0">
-          <span class="sound-vol-val" id="fsValOcean">0%</span>
-        </div>
-
-        <div class="sound-track-item">
-          <div class="sound-info">
-            <span class="sound-emoji">🎧</span>
-            <span class="sound-name">432Hz</span>
-          </div>
-          <input type="range" class="sound-slider" id="fsVolBinaural" min="0" max="100" value="0">
-          <span class="sound-vol-val" id="fsValBinaural">0%</span>
-        </div>
-      </div>
-
-      <div class="fs-sound-actions">
-        <button id="fsResetSoundscapeBtn" class="btn btn-secondary btn-lg">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 4V1L8 5l4 4V6a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z"></path></svg>
-          <span>Reset All Volumes</span>
-        </button>
-        <button id="fsMasterMuteBtn" class="btn btn-secondary btn-lg">Mute All Sounds</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= DAILY GOAL SETTING KICKOFF MODAL POPUP ================= -->
-  <div id="dailyGoalKickoffModal" class="modal-backdrop hidden">
-    <div class="modal-dialog kickoff-modal-dialog">
-      <div class="modal-header">
-        <div class="card-title">
-          <div class="card-icon-badge">
-            <!-- Solid Trophy / Target Glyph -->
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-              <path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94A5.01 5.01 0 0 0 11 15.9V19H8v2h8v-2h-3v-3.1c1.92-.37 3.42-1.89 3.61-3.96C19.08 11.63 21 9.55 21 7V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"></path>
-            </svg>
-          </div>
-          <div>
-            <h3 class="modal-title">Set Today's Daily Goals</h3>
-            <p class="modal-subtitle">Start your day with clear intention and deliberate focus.</p>
-          </div>
-        </div>
-        <button id="closeDailyGoalModal" class="modal-close">&times;</button>
-      </div>
-
-      <form id="dailyGoalKickoffForm" class="modal-body">
-        <div class="settings-group">
-          <label>🎯 #1 Main Focus Priority For Today</label>
-          <input type="text" id="kickoffPriorityInput" placeholder="What is the single most important task to finish today?" required maxlength="120">
-          
-          <!-- Past Goals Dropdown -->
-          <div class="past-goals-section" id="pastGoalsSection">
-            <label class="past-goals-label">
-              <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7a6.97 6.97 0 0 1-4.95-2.05l-1.41 1.41A8.96 8.96 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"></path></svg>
-              Previously Used Goals
-            </label>
-            <div class="past-goals-list" id="pastGoalsList">
-              <!-- Dynamically populated from localStorage history -->
-            </div>
-          </div>
-
-          <div class="kickoff-goal-suggestions">
-            <button type="button" class="goal-chip">🚀 Ship Milestone</button>
-            <button type="button" class="goal-chip">📚 Deep Study (2h)</button>
-            <button type="button" class="goal-chip">🥗 30m Workout</button>
-            <button type="button" class="goal-chip">📝 Writing Block</button>
-          </div>
-        </div>
-
-        <div class="kickoff-grid-row">
-          <div class="settings-group">
-            <label>💧 Daily Water Goal (ml)</label>
-            <input type="number" id="kickoffWaterGoalInput" value="2500" min="500" max="10000" step="100" required>
-          </div>
-          <div class="settings-group">
-            <label>⏱️ Focus Target (Sessions)</label>
-            <input type="number" id="kickoffFocusTargetInput" value="4" min="1" max="16" required>
-          </div>
-        </div>
-
-        <div class="modal-btn-row mt-3">
-          <button type="submit" class="btn btn-primary btn-full btn-lg">
-            <span>🚀 Lock In Daily Goals & Begin</span>
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- ================= SETTINGS & DATA MODAL ================= -->
-  <div id="settingsModal" class="modal-backdrop hidden">
-    <div class="modal-dialog">
-      <div class="modal-header">
-        <h3 class="modal-title">Settings & Preferences</h3>
-        <button id="closeSettingsModal" class="modal-close">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div class="settings-group">
-          <label>Theme</label>
-          <select id="settingThemeSelect">
-            <option value="theme-dark">⬛ Monochrome Dark</option>
-            <option value="theme-light">⬜ Monochrome Light</option>
-          </select>
-        </div>
-        <div class="settings-group">
-          <label>Push Notifications & Popups</label>
-          <button id="enableNotificationsBtn" class="btn btn-secondary btn-full">
-            🔔 Enable Focus & Wellness Reminders
-          </button>
-        </div>
-        <div class="settings-group">
-          <label>Daily Water Goal (ml)</label>
-          <input type="number" id="settingWaterGoal" value="2500" step="100">
-        </div>
-        <div class="settings-group">
-          <label>Daily Spend Limit ($)</label>
-          <input type="number" id="settingDailyBudget" value="40" step="5">
-        </div>
-        <div class="settings-group">
-          <label>Pomodoro Duration (minutes)</label>
-          <input type="number" id="settingPomoTime" value="25" min="1" max="90">
-        </div>
-        
-        <hr class="modal-divider">
-
-        <div class="settings-pro-card" id="settingsProBanner">
-          <div class="pro-card-header">
-            <span class="pro-card-badge">💎 DAYCRAFT PRO</span>
-            <span class="pro-card-price">₹399 Lifetime</span>
-          </div>
-          <p class="pro-card-desc">Remove all ads forever & unlock unlimited focus soundscapes. No login needed.</p>
-          <button id="settingsOpenProBtn" class="btn btn-primary btn-full">⚡ Upgrade to Pro (₹399)</button>
-        </div>
-
-        <hr class="modal-divider">
-        
-        <h4>Google Account & Subscription Sync</h4>
-        <div class="firebase-auth-status-card mb-2">
-          <!-- Dynamically populated by FirebaseAuthManager -->
-        </div>
-
-        <hr class="modal-divider">
-        
-        <h4>Google Play & Updates</h4>
-        <div class="settings-action-row">
-          <button id="settingsRateAppBtn" class="btn btn-secondary btn-full mb-2">
-            ⭐ Rate DayCraft on Google Play
-          </button>
-          <button id="settingsCheckUpdateBtn" class="btn btn-ghost btn-full">
-            🔄 Check for Updates
-          </button>
-        </div>
-
-        <hr class="modal-divider">
-        
-        <h4>Data & Privacy</h4>
-        <p class="modal-help">All your data is stored automatically on your device. No cloud. No account needed.</p>
-        <div class="auto-save-badge">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"></path></svg>
-          <span>Auto-saved to device storage</span>
-        </div>
-        <div class="modal-btn-row mt-3">
-          <button id="clearAllDataBtn" class="btn btn-danger-outline">⚠️ Reset All Data</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= ADD HABIT MODAL ================= -->
-  <div id="habitModal" class="modal-backdrop hidden">
-    <div class="modal-dialog">
-      <div class="modal-header">
-        <h3 class="modal-title">Add Daily Habit</h3>
-        <button id="closeHabitModal" class="modal-close">&times;</button>
-      </div>
-      <form id="addHabitForm" class="modal-body">
-        <div class="settings-group">
-          <label>Habit Name</label>
-          <input type="text" id="newHabitName" placeholder="e.g. 20m Morning Cardio, Read 10 Pages..." required maxlength="50">
-        </div>
-        <div class="settings-group">
-          <label>Emoji Icon</label>
-          <input type="text" id="newHabitEmoji" value="⚡" maxlength="4">
-        </div>
-        <div class="settings-group">
-          <label>Category</label>
-          <select id="newHabitCategory">
-            <option value="health">🥗 Health & Fitness</option>
-            <option value="mind">🧠 Mind & Learning</option>
-            <option value="work">💼 Work & Productivity</option>
-            <option value="lifestyle">✨ Lifestyle & Zen</option>
-          </select>
-        </div>
-        <div class="modal-btn-row">
-          <button type="submit" class="btn btn-primary btn-full">Add Habit</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- ================= KEYBOARD SHORTCUTS MODAL ================= -->
-  <div id="shortcutsModal" class="modal-backdrop hidden">
-    <div class="modal-dialog">
-      <div class="modal-header">
-        <h3 class="modal-title">Keyboard Shortcuts</h3>
-        <button id="closeShortcutsModal" class="modal-close">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div class="shortcut-item"><kbd>1</kbd> <span>Jump to Focus Studio</span></div>
-        <div class="shortcut-item"><kbd>2</kbd> <span>Jump to Daily Tasks</span></div>
-        <div class="shortcut-item"><kbd>3</kbd> <span>Jump to Everyday Toolbox</span></div>
-        <div class="shortcut-item"><kbd>4</kbd> <span>Jump to Habits & Mood</span></div>
-        <div class="shortcut-item"><kbd>Space</kbd> <span>Start / Pause Focus Timer</span></div>
-        <div class="shortcut-item"><kbd>Z</kbd> <span>Toggle Fullscreen Zen Focus</span></div>
-        <div class="shortcut-item"><kbd>N</kbd> <span>Add New Task</span></div>
-        <div class="shortcut-item"><kbd>W</kbd> <span>Quick Log +250ml Water</span></div>
-        <div class="shortcut-item"><kbd>M</kbd> <span>Mute / Unmute Soundscapes</span></div>
-        <div class="shortcut-item"><kbd>Esc</kbd> <span>Exit Modals or Zen Mode</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= CUSTOM TIMER CREATOR MODAL POPUP ================= -->
-  <div id="customTimerModal" class="modal-backdrop hidden">
-    <div class="modal-dialog">
-      <div class="modal-header">
-        <div class="card-title">
-          <div class="card-icon-badge">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-              <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 10.59V7a1 1 0 0 0-2 0v5a1 1 0 0 0 .29.71l3 3a1 1 0 0 0 1.42-1.42z"></path>
-            </svg>
-          </div>
-          <h3 class="modal-title">Create Custom Timer</h3>
-        </div>
-        <button id="closeCustomTimerModal" class="modal-close">&times;</button>
-      </div>
-      <form id="customTimerModalForm" class="modal-body">
-        <div class="settings-group">
-          <label>Timer Label / Task Name</label>
-          <input type="text" id="customTimerModalName" placeholder="e.g. Deep Writing, Rapid Sprint, Power Nap" required maxlength="30">
-        </div>
-        <div class="settings-group">
-          <label>Duration (Minutes)</label>
-          <input type="number" id="customTimerModalMins" value="15" min="1" max="240" required>
-        </div>
-        <div class="settings-group">
-          <label class="custom-checkbox-label">
-            <input type="checkbox" id="customTimerAutoZen" checked>
-            <span>Auto-launch in Fullscreen Zen Mode</span>
-          </label>
-        </div>
-        <div class="modal-btn-row mt-3">
-          <button type="submit" class="btn btn-primary btn-full">Create & Start Timer</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- ================= FULLSCREEN 20-20-20 EYE BREAK OVERLAY HUD ================= -->
-  <div id="eyeBreakOverlay" class="eye-break-overlay hidden">
-    <div class="eye-break-content">
-      <div class="eye-break-icon-wrap">
-        <svg viewBox="0 0 24 24" width="48" height="48" fill="currentColor">
-          <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"></path>
-        </svg>
-      </div>
-
-      <h2 class="eye-break-headline">20-20-20 Eye Rest & Stretch</h2>
-      <p class="eye-break-subtext">Look away from your screen at an object at least 20 feet away to completely relax your eye muscles.</p>
-
-      <div class="eye-break-circle-container">
-        <svg class="eye-break-svg" viewBox="0 0 200 200">
-          <circle class="eye-break-track" cx="100" cy="100" r="80"></circle>
-          <circle class="eye-break-progress" id="eyeBreakProgressCircle" cx="100" cy="100" r="80"></circle>
-      <div class="eye-break-actions">
-        <button id="closeEyeBreakBtn" class="btn btn-secondary btn-lg">Skip / Done</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= DAYCRAFT LIFETIME PRO MODAL (₹399 ONE-TIME) ================= -->
-  <!-- ================= FOCUSFLOW LIFETIME PRO MODAL (₹399 ONE-TIME) ================= -->
-  <div id="proUpgradeModal" class="modal-backdrop hidden">
-    <div class="modal-dialog pro-modal-dialog">
-      <div class="pro-modal-hero">
-        <div class="pro-icon-aura">💎</div>
-        <h2 class="pro-modal-title">FocusFlow Lifetime Pro</h2>
-        <div class="pro-price-tag">
-          <span class="currency">₹</span>
-          <span class="amount">399</span>
-          <span class="period">/ One-time Lifetime</span>
-        </div>
-        <p class="pro-modal-subtitle">Pay once, own forever. 100% private with zero account or login needed.</p>
-      </div>
-
-      <div class="pro-modal-body">
-        <div class="pro-benefits-list">
-          <div class="pro-benefit-item">
-            <span class="benefit-check">✓</span>
-            <div>
-              <strong>100% Ad-Free Experience</strong>
-              <p>Permanently removes sticky bottom banner and all in-page ads.</p>
-            </div>
-          </div>
-          <div class="pro-benefit-item">
-            <span class="benefit-check">✓</span>
-            <div>
-              <strong>Unlimited 432Hz Soundscapes</strong>
-              <p>Continuous binaural beats, sleep timer & high-fidelity mixing.</p>
-            </div>
-          </div>
-          <div class="pro-benefit-item">
-            <span class="benefit-check">✓</span>
-            <div>
-              <strong>Google Play Billing & Firebase Sync</strong>
-              <p>Paid securely through Google Play Store. Syncs real-time subscription status to your Google Account.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Firebase Google Authentication Card -->
-        <div class="firebase-auth-status-card mb-3">
-          <!-- Dynamically updated by FirebaseAuthManager -->
-        </div>
-
-        <div class="pro-actions-col">
-          <button id="buyProBtn" class="btn btn-primary btn-lg btn-full mb-2">
-            🚀 Pay via Google Play Store (₹399)
-          </button>
-          
-          <button id="restoreProBtn" class="btn btn-ghost btn-sm btn-full text-muted">
-            🔄 Restore Google Play Purchase
-          </button>
-        </div>
-      </div>
-      <button id="closeProModalBtn" class="modal-close">&times;</button>
-    </div>
-  </div>
-
-  <!-- ================= IN-APP PLAY STORE RATING PROMPT MODAL ================= -->
-  <div id="ratingModal" class="modal-backdrop hidden">
-    <div class="modal-dialog rating-modal-dialog">
-      <div class="rating-modal-content text-center">
-        <div class="rating-icon-wrap">
-          <span class="rating-emoji">⭐</span>
-        </div>
-        <h3 class="rating-title">Enjoying FocusFlow?</h3>
-        <p class="rating-desc">
-          Your review helps us keep FocusFlow 100% private, offline, and free from intrusive popups.
-        </p>
-
-        <div class="rating-stars-row" id="ratingStarsRow">
-          <span class="star-btn" data-star="1">★</span>
-          <span class="star-btn" data-star="2">★</span>
-          <span class="star-btn" data-star="3">★</span>
-          <span class="star-btn" data-star="4">★</span>
-          <span class="star-btn active" data-star="5">★</span>
-        </div>
-
-        <div class="rating-actions-column">
-          <button id="submitPlayStoreReviewBtn" class="btn btn-primary btn-lg btn-full mb-2">
-            ⭐ Rate 5 Stars on Google Play
-          </button>
-          <div class="rating-sub-actions">
-            <button id="remindRatingLaterBtn" class="btn btn-ghost btn-sm">Remind Me Later</button>
-            <button id="neverAskRatingBtn" class="btn btn-ghost btn-sm text-muted">Don't Ask Again</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= GOOGLE PLAY UPDATE AVAILABLE MODAL ================= -->
-  <div id="updateAvailableModal" class="modal-backdrop hidden">
-    <div class="modal-dialog">
-      <div class="modal-header">
-        <div class="card-title">
-          <div class="card-icon-badge">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.5v-4h3l-4-5-4 5h3v4h2z"></path>
-            </svg>
-          </div>
-          <div>
-            <h3 class="modal-title">New Update Available!</h3>
-            <span class="badge badge-primary">v1.1.0 Ready</span>
-          </div>
-        </div>
-        <button id="closeUpdateModalBtn" class="modal-close">&times;</button>
-      </div>
-      <div class="modal-body">
-        <p class="mb-3">A new version of FocusFlow is available on Google Play with improved sound synthesis, battery optimizations, and new focus features.</p>
-        <div class="update-highlights">
-          <div class="update-highlight-item">⚡ Faster offline state restoration</div>
-          <div class="update-highlight-item">🎧 Enhanced 432Hz binaural audio clarity</div>
-          <div class="update-highlight-item">🎯 Refined Zen Focus HUD telemetry</div>
-        </div>
-        <div class="modal-btn-row mt-4">
-          <button id="openPlayStoreUpdateBtn" class="btn btn-primary btn-full">
-            🚀 Update Now from Google Play
-          </button>
-        </div>
-      </div>
+      <button class="modal-close">&times;</button>
     </div>
   </div>
 
   <!-- Confetti Canvas -->
   <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
 
-  <!-- JavaScript Modules with Cache Busters -->
-  <script src="js/store.js?v=8.0"></script>
-  <script src="js/audio.js?v=8.0"></script>
-  <script src="js/utils/confetti.js?v=8.0"></script>
-  <script src="js/utils/permissions.js?v=8.0"></script>
-  <script src="js/modules/briefing.js?v=8.0"></script>
-  <script src="js/modules/focus.js?v=8.0"></script>
-  <script src="js/modules/wellness.js?v=8.0"></script>
-  <script src="js/modules/tasks.js?v=8.0"></script>
-  <script src="js/modules/toolbox.js?v=8.0"></script>
-  <script src="js/modules/reflection.js?v=8.0"></script>
-  <script src="js/modules/firebaseAuth.js?v=8.0"></script>
-  <script src="js/app.js?v=8.0"></script>
+  <!-- Scripts -->
+  <script src="js/chat/store.js?v=10.0"></script>
+  <script src="js/chat/audio.js?v=10.0"></script>
+  <script src="js/utils/confetti.js?v=10.0"></script>
+  <script src="js/modules/firebaseAuth.js?v=10.0"></script>
+  <script src="js/chat/app.js?v=10.0"></script>
 
-  <!-- Service Worker Registration for Background Support -->
   <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').then((reg) => {
-          console.log("DayCraft: ServiceWorker registered successfully:", reg.scope);
-        }).catch((err) => {
-          console.warn("DayCraft: ServiceWorker registration error:", err);
-        });
+    // VIP & Settings Modal Triggers
+    const vipTrigger = document.getElementById('headerVipBtn');
+    const vipModal = document.getElementById('retroVipModal');
+    if (vipTrigger && vipModal) {
+      vipTrigger.addEventListener('click', () => vipModal.classList.remove('hidden'));
+    }
+
+    const settingsTrigger = document.getElementById('settingsModalTrigger');
+    const settingsModal = document.getElementById('chatSettingsModal');
+    if (settingsTrigger && settingsModal) {
+      settingsTrigger.addEventListener('click', () => settingsModal.classList.remove('hidden'));
+    }
+
+    // Buy VIP Pass
+    const buyVipBtn = document.getElementById('buyRetroVipBtn');
+    if (buyVipBtn) {
+      buyVipBtn.addEventListener('click', () => {
+        window.retroChatStore.state.settings.isVip = true;
+        window.retroChatStore.save();
+        if (vipModal) vipModal.classList.add('hidden');
+        if (window.retroAudio) window.retroAudio.playGroupJoin();
+        if (window.confetti) window.confetti.fire(window.innerWidth / 2, window.innerHeight / 2, 80);
+        alert("💎 Retro Chat VIP Activated!\n\n✓ All ads removed\n✓ All custom retro themes unlocked!");
+      });
+    }
+
+    // Clear Data
+    const clearBtn = document.getElementById('clearChatDataBtn');
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        if (confirm("Are you sure you want to clear all chat conversations?")) {
+          localStorage.removeItem('retro_chat_db_v1');
+          location.reload();
+        }
       });
     }
   </script>

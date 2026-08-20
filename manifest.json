@@ -1,7 +1,7 @@
 {
-  "name": "FocusFlow: Daily Routine & Focus OS",
-  "short_name": "FocusFlow",
-  "description": "Minimalist Daily Routine Planner, Pomodoro Focus Studio & Habit Tracker",
+  "name": "Retro Chat: Code & Group Messaging",
+  "short_name": "Retro Chat",
+  "description": "Fast, private, code-based direct and group messaging.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#09090b",

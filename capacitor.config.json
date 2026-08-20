@@ -1,6 +1,6 @@
 {
-  "appId": "com.ganeshpr.focusflow",
-  "appName": "FocusFlow: Daily Routine & Focus",
+  "appId": "com.ganeshpr.retrochat",
+  "appName": "Retro Chat",
   "webDir": "www",
   "bundledWebRuntime": false,
   "server": {

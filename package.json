@@ -1,7 +1,7 @@
 {
-  "name": "focusflow-daily-routine-app",
+  "name": "retro-chat-app",
   "version": "1.0.0",
-  "description": "FocusFlow: Minimalist Daily Routine Planner, Pomodoro Focus Studio & Habit Tracker",
+  "description": "Retro Chat — Private Code-Based & Group Realtime Messaging",
   "main": "index.html",
   "scripts": {
     "start": "npx serve .",
@@ -10,13 +10,12 @@
     "build:android": "npx cap copy android && cd android && ./gradlew assembleRelease"
   },
   "keywords": [
-    "daily-routine",
-    "pomodoro-timer",
-    "focus-planner",
-    "habit-tracker",
-    "ambient-sounds",
-    "offline-app",
-    "productivity-os"
+    "chat-app",
+    "code-based-chat",
+    "group-chat",
+    "realtime-messaging",
+    "privacy-chat",
+    "android-chat"
   ],
   "author": "Ganeshpr",
   "license": "MIT",

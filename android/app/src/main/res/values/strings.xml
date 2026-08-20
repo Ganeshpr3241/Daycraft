@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">FocusFlow: Daily Routine &amp; Focus</string>
-    <string name="title_activity_main">FocusFlow</string>
-    <string name="package_name">com.ganeshpr.focusflow</string>
-    <string name="custom_url_scheme">com.ganeshpr.focusflow</string>
+    <string name="app_name">Retro Chat</string>
+    <string name="title_activity_main">Retro Chat</string>
+    <string name="package_name">com.ganeshpr.retrochat</string>
+    <string name="custom_url_scheme">com.ganeshpr.retrochat</string>
 </resources>
