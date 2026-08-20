@@ -1,25 +1,16 @@
 /**
- * DAYCRAFT — SERVICE WORKER FOR BACKGROUND EXECUTION & PUSH NOTIFICATIONS
+ * RETRO CHAT — SERVICE WORKER
  */
 
-const CACHE_NAME = 'daycraft-v4';
+const CACHE_NAME = 'retrochat-v10';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './css/main.css',
-  './css/components.css',
-  './css/responsive.css',
-  './js/store.js',
-  './js/audio.js',
+  './css/chat.css',
+  './js/chat/store.js',
+  './js/chat/audio.js',
+  './js/chat/app.js',
   './js/utils/confetti.js',
-  './js/utils/permissions.js',
-  './js/modules/briefing.js',
-  './js/modules/focus.js',
-  './js/modules/wellness.js',
-  './js/modules/tasks.js',
-  './js/modules/toolbox.js',
-  './js/modules/reflection.js',
-  './js/app.js',
   './manifest.json'
 ];
 
@@ -32,39 +23,26 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// Activate Event: Cleanup Old Caches
+// Activate Event: Cleanup Old Caches Immediately
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
       return Promise.all(
-        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
+        keys.map((key) => {
+          if (key !== CACHE_NAME) {
+            return caches.delete(key);
+          }
+        })
       );
     }).then(() => self.clients.claim())
   );
 });
 
-// Fetch Event: Cache First, Network Fallback
+// Fetch Event: Network First, Cache Fallback
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      return cachedResponse || fetch(event.request);
-    })
-  );
-});
-
-// Push & Notification Click Events
-self.addEventListener('notificationclick', (event) => {
-  event.notification.close();
-  event.waitUntil(
-    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
-      for (const client of clientList) {
-        if (client.url.includes('index.html') && 'focus' in client) {
-          return client.focus();
-        }
-      }
-      if (clients.openWindow) {
-        return clients.openWindow('./index.html');
-      }
+    fetch(event.request).catch(() => {
+      return caches.match(event.request);
     })
   );
 });

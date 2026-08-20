@@ -313,6 +313,16 @@
         }
       });
     }
+
+    // Clear Old ServiceWorker Caches & Register New
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(registrations => {
+        for (let registration of registrations) {
+          registration.update();
+        }
+      });
+      navigator.serviceWorker.register('./sw.js?v=10.1').catch(() => {});
+    }
   </script>
 </body>
 </html>
