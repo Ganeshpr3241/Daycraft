@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Nexus — Android App</title>
+  <title>Retro Chat — Android App</title>
   
   <!-- Mobile Status Bar Color (Android) -->
   <meta name="theme-color" content="#090d16">
@@ -11,13 +11,16 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+  <link rel="icon" type="image/png" href="./assets/logo.png">
+  <link rel="apple-touch-icon" href="./assets/logo.png">
+
   <!-- Google Font: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=2.0">
+  <link rel="stylesheet" href="css/style.css?v=3.0">
 </head>
 <body>
 
@@ -57,12 +60,9 @@
       <!-- App Branding Overlay -->
       <div class="top-art-overlay">
         <div class="app-brand-logo">
-          <!-- Minimalist Diamond / Shield Glyph -->
-          <svg viewBox="0 0 24 24">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          </svg>
+          <img src="assets/logo.png" alt="Retro Chat Logo" class="app-brand-logo-img" />
         </div>
-        <h1 class="brand-app-name">Nexus</h1>
+        <h1 class="brand-app-name">Retro Chat</h1>
       </div>
     </header>
 
@@ -71,8 +71,8 @@
       
       <!-- Glassmorphic Card -->
       <div class="auth-glass-card">
-        <h2 class="auth-headline">Welcome Back</h2>
-        <p class="auth-subtitle">Sign in with your Google account to access your personal dashboard & secure workspace.</p>
+        <h2 class="auth-headline">Welcome to Retro Chat</h2>
+        <p class="auth-subtitle">Sign in with your Google account to connect with friends and join private group channels.</p>
 
         <!-- Official Google Sign-In Button -->
         <button id="googleSignInBtn" class="google-signin-btn">
